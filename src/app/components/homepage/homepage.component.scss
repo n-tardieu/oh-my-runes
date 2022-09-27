@@ -1,0 +1,26 @@
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: red;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.main-video {
+    overflow: hidden;
+    height: 100vh;
+    position: fixed;
+    left: 50%;
+    top: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    filter: grayscale(80%);
+    z-index: -10;
+}
+
+.main-video.playing {
+    visibility: visible;
+}
