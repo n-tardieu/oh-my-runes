@@ -1,7 +1,11 @@
-<section class="content">
-    <h1>Summoners War</h1>
-    <h2>OH MY RUNES !</h2>
-    <video class="main-video playing" preload="true" autoplay loop>
-        <source src="./../../../assets/video/main_vdo.mp4" type="video/mp4">
-    </video>
-</section>
+<div class="container">
+    <section class="container-content">
+        <div class="container-content-title">
+            <h2>OH MY RUNES !</h2>
+        </div>
+        <video #vdo class="main-video playing" loop muted autoplay oncanplay="this.play()"
+            onloadedmetadata="this.muted = true">
+            <source src="./../../../assets/video/main_vdo.mp4" type="video/mp4">
+        </video>
+    </section>
+</div>

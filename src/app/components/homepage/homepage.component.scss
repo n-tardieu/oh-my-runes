@@ -1,10 +1,21 @@
-.content {
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.container-content {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    color: red;
-    font-family: 'Courier New', Courier, monospace;
+    color: white;
+}
+
+.container-content-title {
+    position: absolute;
+    transform: translate(0%, -50%);
 }
 
 .main-video {
@@ -17,10 +28,14 @@
     background-size: cover;
     -webkit-transform: translateX(-50%);
     transform: translateX(-50%);
-    filter: grayscale(80%);
+    filter: brightness(37%) grayscale(80%) contrast(95%);
     z-index: -10;
 }
 
 .main-video.playing {
     visibility: visible;
+}
+
+h2 {
+    font-size: 38px;
 }
