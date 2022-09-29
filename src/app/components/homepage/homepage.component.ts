@@ -11,14 +11,33 @@ export class HomepageComponent implements OnInit, AfterViewInit {
   @ViewChild('vdo')
   el_vdo!: ElementRef;
 
+  fileToUpload: File | null = null;
+  data: any;
+  isValid = false;
+
   constructor() { }
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void { }
 
-  ngAfterViewInit(): void {   
+  ngAfterViewInit(): void {
     this.el_vdo.nativeElement.playbackRate = 1 // (default 1) 
   }
 
+  chooseFile(): void {
+    (document.querySelector('input') as HTMLInputElement).click()
+  }
+
+  handle(event: any) {
+    this.fileToUpload = event.target.files[0]
+    // adapt data
+    const fileReader = new FileReader();
+    fileReader.readAsText(this.fileToUpload as File, "UTF-8");
+    fileReader.onload = () => {
+      this.data = JSON.parse(fileReader.result as string);
+    };
+    this.isValid = true
+  }
+
 }
+
+

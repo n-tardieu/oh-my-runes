@@ -2,6 +2,13 @@
     <section class="container-content">
         <div class="container-content-title">
             <h2>OH MY RUNES !</h2>
+            <button mat-raised-button color="primary" (click)="chooseFile()">
+                Pick a file
+                <!--
+                  <mat-icon class="icon">folder</mat-icon>
+                -->
+                <input type="file" id="cta" style="display:none" (change)="handle($event)">
+            </button>
         </div>
         <video #vdo class="main-video playing" loop muted autoplay oncanplay="this.play()"
             onloadedmetadata="this.muted = true">
