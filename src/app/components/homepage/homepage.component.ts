@@ -1,11 +1,16 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ngOnDestroy , ViewChild } from '@angular/core';
+import { Subscription} from "rxjs/Subscription"
+import { Rune } from '../core/models/rune.model';
+import { RuneService } from 'src/app/services/rune.service';
+
+
 
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.scss']
 })
-export class HomepageComponent implements OnInit, AfterViewInit {
+export class HomepageComponent implements OnInit, AfterViewInit, ngOnDestroy {
 
   // ref main_vdo in background
   @ViewChild('vdo')
@@ -15,9 +20,16 @@ export class HomepageComponent implements OnInit, AfterViewInit {
   data: any;
   isValid = false;
 
-  constructor() { }
+  runes: Rune[] = []
+  runeSubscription: Subscription;
 
-  ngOnInit(): void { }
+  constructor(private runeService: RuneService) { }
+
+  ngOnInit(): void {
+    this.runeSubscription = this.runeService.runesSubject$.subscribe((runes: Rune[]) => {
+      this.runes = runes 
+    })
+   }
 
   ngAfterViewInit(): void {
     this.el_vdo.nativeElement.playbackRate = 1 // (default 1) 
@@ -36,6 +48,8 @@ export class HomepageComponent implements OnInit, AfterViewInit {
       this.data = JSON.parse(fileReader.result as string);
     };
     this.isValid = true
+    console.log("handle ", this.fileToUpload);
+    
   }
 
 }

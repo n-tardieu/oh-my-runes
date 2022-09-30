@@ -7,7 +7,17 @@ import { Rune } from '../core/models/rune.model';
 })
 export class RuneService {
 
-  rune$ = new Subject<Rune[]>()
+  runesSubject$ = new Subject<Rune[]>()
 
-  constructor() { }
+  private runesList: Rune[] = []
+
+  emitRunesSubject(){
+    this.runesSubject$.next(this.runesList.slice())
+  }
+
+  setRunes(runes : Rune[]){
+    this.runesList = runes
+    this.emitRunesSubject() 
+  }
+
 }
