@@ -14,6 +14,9 @@ export class RunesConvertService {
   wizard: Wizard | undefined = undefined
   wizardSubscription: Subscription;
 
+  // TODO create true id
+  id = 1
+
   // TODO create Filter service
   isOnlyStorageRunes = true
   isAbort = false
@@ -112,7 +115,9 @@ export class RunesConvertService {
       });
 
     _runeUnit.concat(_runeList).forEach(rune => {
-      this.upgradeRunes(rune)
+      let runeUpgraded: any = this.upgradeRunes(rune)
+      let runeFormat: any = this.runeExportFormat(runeUpgraded)
+      _newRunes.push(runeFormat)
     });
 
     // contenue du json
@@ -156,9 +161,49 @@ export class RunesConvertService {
         }
       }
     }
-    // TODO implement new clean solution
-    // this.new_runes.push(this.runeExportFormat(rune))
+    return rune
   }
 
+  runeExportFormat(rune: Rune) {
+    this.id += 1
+    let isAntique = 0
+    let secEffect: any = []
+    if (rune.isAntique) {
+      isAntique = 10
+    }
 
+    rune.secondaryEffects.forEach((val, index) => {
+      secEffect.push([
+        rune.secondaryEffects[index].type,
+        rune.secondaryEffects[index].value,
+        rune.secondaryEffects[index].gems,
+        rune.secondaryEffects[index].grindstones
+      ])
+    });
+
+    return {
+      "rune_id": this.id,
+      "wizard_id": 89969661,
+      "occupied_type": 1,
+      "occupied_id": 0,
+      "slot_no": rune.slotFactor,
+      "rank": 5 + isAntique,
+      "class": 6 + isAntique,
+      "set_id": rune.setType,
+      "upgrade_limit": 15,
+      "upgrade_curr": rune.upgradeLevel,
+      "base_value": rune.sellValue,
+      "sell_value": rune.sellValue,
+      "pri_eff": [
+        rune.primaryEffect.type,
+        rune.primaryEffect.value
+      ],
+      "prefix_eff": [
+        rune.innateEffect.type,
+        rune.innateEffect.value
+      ],
+      "sec_eff": secEffect,
+      "extra": rune.extra
+    }
+  }
 }
