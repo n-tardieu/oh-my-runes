@@ -156,6 +156,7 @@ export class RunesConvertService {
         }
       }
     }
+    // TODO implement new clean solution
     // this.new_runes.push(this.runeExportFormat(rune))
   }
 
