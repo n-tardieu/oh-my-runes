@@ -38,8 +38,12 @@ export class HomepageComponent implements OnInit, AfterViewInit {
     this.el_vdo.nativeElement.playbackRate = 1 // (default 1) 
   }
 
-  chooseFile(): void {
+  chooseWizardFile(): void {
     (document.querySelector('input') as HTMLInputElement).click()
+  }
+
+  downloadWizardJSON(): void {
+    this.wizardService.generateWizardJSON()
   }
 
   handle(event: any) {
@@ -49,13 +53,9 @@ export class HomepageComponent implements OnInit, AfterViewInit {
     fileReader.readAsText(this.fileToUpload as File, "UTF-8");
     fileReader.onload = () => {
       const wizard_data = JSON.parse(fileReader.result as string);
-     
       this.wizardService.setWizard(wizard_data)
-      console.log('json ', wizard_data);
     };
     this.isValid = true
-    console.log("handle ", this.fileToUpload);
-
   }
 
   openDialog() {

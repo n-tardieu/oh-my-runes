@@ -7,12 +7,21 @@
                 <mat-divider></mat-divider>
             -->
             <h3>Import your data (via .json File)</h3>
-            <button mat-raised-button color="primary" (click)="chooseFile()">
+            <button mat-raised-button color="primary" (click)="chooseWizardFile()">
                 Pick a file
                 <!--
                   <mat-icon class="icon">folder</mat-icon>
                 -->
                 <input type="file" id="cta" style="display:none" (change)="handle($event)">
+            </button>
+
+            <!-- 
+                Waiting style to remplace </br>
+            -->
+
+            <br />
+            <button mat-raised-button color="primary" (click)="downloadWizardJSON()">
+                Download File
             </button>
         </div>
         <video #vdo class="main-video playing" loop muted autoplay oncanplay="this.play()"
