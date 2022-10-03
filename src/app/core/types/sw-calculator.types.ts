@@ -1,4 +1,4 @@
-import { SWExporterTypes } from "./sw-exporter.types";
+import { SWExporterTypes } from "./sw-exporter.types"
 
 export namespace SWCalculatorTypes {
 
@@ -88,11 +88,15 @@ export namespace SWCalculatorTypes {
         rank: SWExporterTypes.Rank
         slotFactor: SWExporterTypes.RuneSlot      
 
-      
+        innateEffect: Effect
+        primaryEffect: Effect
+        secondaryEffects: Effect[]
+
         sellValue: number
 
         maxUpgradeLevel: number
         upgradeLevel: number
+        unitImage?: string
     }
 
     export interface Artifact {

@@ -11,13 +11,12 @@ export class RuneService {
 
   private runesList: Rune[] = []
 
-  emitRunesSubject(){
+  emitRunesSubject() {
     this.runesSubject$.next(this.runesList.slice())
   }
 
-  setRunes(runes : Rune[]){
+  setRunes(runes: Rune[]) {
     this.runesList = runes
-    this.emitRunesSubject() 
+    this.emitRunesSubject()
   }
-
 }

@@ -1,5 +1,6 @@
 import { SWExporterTypes } from "../types/sw-exporter.types"
 import { SWCalculatorTypes } from "../types/sw-calculator.types"
+import { Effect } from "./effect.model"
 
 export function emptyRuneSlot() {
     return {
@@ -26,6 +27,12 @@ export class Rune implements SWCalculatorTypes.Rune {
     maxUpgradeLevel: number
     upgradeLevel: number
 
+    // TODO switch Effect
+    innateEffect: any // Effect
+    primaryEffect: any // Effect
+    secondaryEffects: Effect[] = []
+    unitImage?: string
+
 
 
     constructor(data: SWCalculatorTypes.Rune) {
@@ -39,6 +46,7 @@ export class Rune implements SWCalculatorTypes.Rune {
         this.maxUpgradeLevel = data.maxUpgradeLevel
         this.upgradeLevel = data.upgradeLevel
     }
+
 
 
 
