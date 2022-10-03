@@ -1,7 +1,8 @@
-import { AfterViewInit, Component, ElementRef, OnInit , ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Rune } from 'src/app/core/models/rune.model';
 //import { Subscription} from "rxjs/Subscription"
 import { RuneService } from 'src/app/services/rune.service';
+import { WizardService } from 'src/app/services/wizard.service';
 
 
 
@@ -21,9 +22,9 @@ export class HomepageComponent implements OnInit, AfterViewInit {
   isValid = false;
 
   runes: Rune[] = []
- // runeSubscription: Subscription;
+  // runeSubscription: Subscription;
 
-  constructor(private runeService: RuneService) { }
+  constructor(private runeService: RuneService, private wizardService: WizardService) { }
 
   ngOnInit(): void {
     /*
@@ -31,7 +32,7 @@ export class HomepageComponent implements OnInit, AfterViewInit {
       this.runes = runes 
     })
     */
-   }
+  }
 
   ngAfterViewInit(): void {
     this.el_vdo.nativeElement.playbackRate = 1 // (default 1) 
@@ -47,16 +48,19 @@ export class HomepageComponent implements OnInit, AfterViewInit {
     const fileReader = new FileReader();
     fileReader.readAsText(this.fileToUpload as File, "UTF-8");
     fileReader.onload = () => {
-      this.data = JSON.parse(fileReader.result as string);
+      const wizard_data = JSON.parse(fileReader.result as string);
+     
+      this.wizardService.setWizard(wizard_data)
+      console.log('json ', wizard_data);
     };
     this.isValid = true
     console.log("handle ", this.fileToUpload);
-    
+
   }
 
   openDialog() {
-  //  this.isDialogOpen = true
-  //  this.dialog.open(LoadingDialogComponent, { disableClose: true });
+    //  this.isDialogOpen = true
+    //  this.dialog.open(LoadingDialogComponent, { disableClose: true });
   }
 
 }

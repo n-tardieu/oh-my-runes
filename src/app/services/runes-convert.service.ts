@@ -10,8 +10,7 @@ export class RunesConvertService {
 
   constructor() { }
 
-  // runes
-  public async convertAllRunes(exportRunes: any) {
+  convertAllRunes(exportRunes: any) {
     return exportRunes.map((runeToConverte: any) => {
       return this.convertOneRune(runeToConverte)
     }).map((n: any) => new Rune(n))
@@ -54,4 +53,5 @@ export class RunesConvertService {
       effect_reducer: 1
     }
   }
+
 }
