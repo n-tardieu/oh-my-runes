@@ -195,12 +195,12 @@ export class RunesConvertService {
       "base_value": rune.sellValue,
       "sell_value": rune.sellValue,
       "pri_eff": [
-        rune.primaryEffect.type,
-        rune.primaryEffect.value
+        rune?.primaryEffect?.type || 0, // TODO need fix
+        rune?.primaryEffect?.value || 0 // TODO need fix
       ],
       "prefix_eff": [
-        rune.innateEffect.type,
-        rune.innateEffect.value
+        rune?.innateEffect?.type || 0, // TODO need fix
+        rune?.innateEffect?.value || 0 // TODO need fix
       ],
       "sec_eff": secEffect,
       "extra": rune.extra

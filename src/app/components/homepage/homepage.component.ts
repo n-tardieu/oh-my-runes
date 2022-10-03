@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { Rune } from 'src/app/core/models/rune.model';
 //import { Subscription} from "rxjs/Subscription"
 import { RuneService } from 'src/app/services/rune.service';
+import { RunesConvertService } from 'src/app/services/runes-convert.service';
 import { WizardService } from 'src/app/services/wizard.service';
 
 
@@ -24,7 +25,7 @@ export class HomepageComponent implements OnInit, AfterViewInit {
   runes: Rune[] = []
   // runeSubscription: Subscription;
 
-  constructor(private runeService: RuneService, private wizardService: WizardService) { }
+  constructor(private runeService: RuneService, private wizardService: WizardService, private runeConvertService: RunesConvertService) { }
 
   ngOnInit(): void {
     /*
@@ -43,7 +44,8 @@ export class HomepageComponent implements OnInit, AfterViewInit {
   }
 
   downloadWizardJSON(): void {
-    this.wizardService.generateWizardJSON()
+    let json = this.runeConvertService.cleanFileWithRaid()
+    this.wizardService.generateWizardJSON(json)
   }
 
   handle(event: any) {
