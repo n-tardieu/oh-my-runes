@@ -17,6 +17,7 @@ export class WizardService {
   emitWizardSubject() {
     console.log('Wizard has emit !');
     this.wizardSubject$.next(this.wizard_data)
+
     // TODO check why slice don't work
     // this.wizardSubject$.next(this.wizard_data.slice()) 
   }
