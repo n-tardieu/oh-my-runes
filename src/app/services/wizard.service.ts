@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Wizard } from '../core/types/sw-wizard.types';
+import { RunesConvertService } from './runes-convert.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class WizardService {
 
   private wizard_data: any
 
-  constructor() {
+  constructor(private runeConvertService: RunesConvertService) {
   }
 
   emitWizardSubject() {
@@ -38,7 +39,8 @@ export class WizardService {
   }
 
   generateWizardJSON() {
-    this.downloadObjectAsJson(this.wizard_data, `runes-grinds-exemple`)
+    let json = this.runeConvertService.cleanFileWithRaid()
+    this.downloadObjectAsJson(json, `ohmyRunes`)
   }
 
   downloadObjectAsJson(exportObj: any, exportName: string) {
