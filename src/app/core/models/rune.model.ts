@@ -45,10 +45,14 @@ export class Rune implements SWCalculatorTypes.Rune {
         this.sellValue = data.sellValue
         this.maxUpgradeLevel = data.maxUpgradeLevel
         this.upgradeLevel = data.upgradeLevel
+        if (data.innateEffect) {
+            this.innateEffect = new Effect(data.innateEffect)
+        }
+        this.primaryEffect = new Effect(data.primaryEffect)
+        for (let i in data.secondaryEffects) {
+            this.secondaryEffects.push(new Effect(data.secondaryEffects[i]))
+        }
     }
-
-
-
 
     static subStatEfficiency: Map<SWExporterTypes.EffectType, number> = new Map([
         [SWExporterTypes.EffectType.HP, 1875],

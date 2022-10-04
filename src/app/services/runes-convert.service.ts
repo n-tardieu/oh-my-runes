@@ -73,7 +73,7 @@ export class RunesConvertService {
     }
   }
 
-  cleanFileWithRaid(): JSON {
+  cleanFileWithRaid() {
 
     // constantes de la methode
     let _runeList: Rune[] = []
@@ -125,7 +125,7 @@ export class RunesConvertService {
     jsonToSend.unit_list = unit_clear
     jsonToSend.rune_craft_item_list = [] // permet de supprimer toutes les meules/gemmes du storage
 
-    return jsonToSend as JSON
+    return jsonToSend
   }
 
   upgradeRunes(rune: Rune) {
@@ -165,6 +165,9 @@ export class RunesConvertService {
   }
 
   runeExportFormat(rune: Rune) {
+
+    console.log("__rune ", rune );
+    
     this.id += 1
     let isAntique = 0
     let secEffect: any = []
@@ -195,12 +198,12 @@ export class RunesConvertService {
       "base_value": rune.sellValue,
       "sell_value": rune.sellValue,
       "pri_eff": [
-        rune?.primaryEffect?.type || 0, // TODO need fix
-        rune?.primaryEffect?.value || 0 // TODO need fix
+        rune.primaryEffect.type,
+        rune.primaryEffect.value,
       ],
       "prefix_eff": [
-        rune?.innateEffect?.type || 0, // TODO need fix
-        rune?.innateEffect?.value || 0 // TODO need fix
+        rune.innateEffect.type,
+        rune.innateEffect.value,
       ],
       "sec_eff": secEffect,
       "extra": rune.extra
