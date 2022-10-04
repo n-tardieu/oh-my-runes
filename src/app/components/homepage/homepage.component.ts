@@ -22,6 +22,12 @@ export class HomepageComponent implements OnInit, AfterViewInit {
   data: any;
   isValid = false;
 
+  // form
+  public isEquipedRunes = true;
+  public isOnlyStorageRunes = true;
+  public isAbort = true;
+  public gemGrade = 'hero';
+
   runes: Rune[] = []
   // runeSubscription: Subscription;
 
@@ -63,6 +69,11 @@ export class HomepageComponent implements OnInit, AfterViewInit {
   openDialog() {
     //  this.isDialogOpen = true
     //  this.dialog.open(LoadingDialogComponent, { disableClose: true });
+  }
+
+  resetFile(){
+    (document.querySelector('input') as HTMLInputElement).value = "";
+    this.isValid = false
   }
 
 }

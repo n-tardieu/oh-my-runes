@@ -2,28 +2,45 @@
     <section class="container-content">
         <div class="container-content-title">
             <h2>OH MY RUNES !</h2>
+            <h3>Upgrade runes (With Enchanted Gem)</h3>
+
             <!-- 
                 need to fix it
                 <mat-divider></mat-divider>
             -->
+            <div class="hr-solid"></div>
             <h3>Import your data (via .json File)</h3>
-            <button mat-raised-button color="primary" (click)="chooseWizardFile()">
-                Pick a file
-                <!--
-                  <mat-icon class="icon">folder</mat-icon>
-                -->
-                <input type="file" id="cta" style="display:none" (change)="handle($event)">
-            </button>
+            <div class="section-import-button">
+                <button mat-raised-button (click)="chooseWizardFile()">Pick a file <mat-icon class="icon">folder
+                    </mat-icon><input type="file" id="cta" style="display:none" (change)="handle($event)"></button>
+            </div>
+            <div class="section-two-import-button">
+                <button mat-raised-button *ngIf="isValid" (click)="downloadWizardJSON()" class="btn-valid">Download
+                    grinds runes <mat-icon class="icon">file_download_on</mat-icon></button>
+                <button mat-flat-button disabled *ngIf="!isValid" class="btn-invalid">Full grinds runes<mat-icon
+                        class="icon">file_download_off</mat-icon></button>
+            </div>
+            <mat-radio-group [(ngModel)]="gemGrade" class="section-gems" aria-label="Select an option">
+                <mat-radio-button class="legOrHero" value="leg">Use Legendary gems</mat-radio-button>
+                <br>
+                <mat-radio-button class="legOrHero" value="hero">Use Hero gems</mat-radio-button>
+            </mat-radio-group>
+            <div class="section-option">
+                <!-- <mat-slide-toggle [(ngModel)]="isEquipedRunes">Use equiped runes</mat-slide-toggle> -->
+                <mat-slide-toggle [(ngModel)]="isOnlyStorageRunes">Exclude runes from island monsters</mat-slide-toggle>
+                <br>
+                <mat-slide-toggle [(ngModel)]="isAbort">Abort if default is higher</mat-slide-toggle>
 
-            <!-- 
-                Waiting style to remplace </br>
-            -->
-
-            <br />
-            <button mat-raised-button color="primary" (click)="downloadWizardJSON()">
-                Download File
-            </button>
+            </div>
+            <div class="section-manage-json">
+                <div *ngIf="isValid" class="section-json-name">
+                    <p>{{fileToUpload?.name || "File-data.json"}}</p>
+                    <mat-icon class="icon" (click)="resetFile()">clear</mat-icon>
+                </div>
+            </div>
         </div>
+
+
         <video #vdo class="main-video playing" loop muted autoplay oncanplay="this.play()"
             onloadedmetadata="this.muted = true">
             <source src="./../../../assets/video/main_vdo.mp4" type="video/mp4">
