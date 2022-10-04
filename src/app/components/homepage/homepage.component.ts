@@ -22,6 +22,7 @@ export class HomepageComponent implements OnInit, AfterViewInit {
   data: any;
   isValid = false;
 
+  // TODO implement form for generate JSON
   // form
   public isEquipedRunes = true;
   public isOnlyStorageRunes = true;
