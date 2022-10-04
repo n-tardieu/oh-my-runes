@@ -15,7 +15,7 @@
                     </mat-icon><input type="file" id="cta" style="display:none" (change)="handle($event)"></button>
             </div>
             <div class="section-two-import-button">
-                <button mat-raised-button *ngIf="isValid" (click)="downloadWizardJSON()" class="btn-valid">Go to the dashbord <mat-icon class="icon">dashboard</mat-icon></button>
+                <button mat-raised-button *ngIf="isValid" (click)="downloadWizardJSON()" class="btn-valid">Go to the dashbord <mat-icon class="icon">file_download_on</mat-icon></button>
                 <button mat-flat-button disabled *ngIf="!isValid" class="btn-invalid">Full grinds runes<mat-icon
                         class="icon">file_download_off</mat-icon></button>
             </div>
