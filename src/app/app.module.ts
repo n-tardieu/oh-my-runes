@@ -19,13 +19,15 @@ import { MatCardModule} from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule} from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomepageComponent
+    HomepageComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
