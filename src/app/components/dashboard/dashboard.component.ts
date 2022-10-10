@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { RunesConvertService } from 'src/app/services/runes-convert.service';
+import { WizardService } from 'src/app/services/wizard.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,9 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  isValid = false;
 
-  ngOnInit(): void {
+  // TODO implement form for generate JSON
+  // form
+  public isEquipedRunes = true;
+  public isOnlyStorageRunes = true;
+  public isAbort = true;
+  public gemGrade = 'hero';
+
+
+  constructor(private runeConvertService: RunesConvertService, private wizardService: WizardService) { }
+
+  ngOnInit() {
+  }
+
+  downloadWizardJSON(): void {
+    let json = this.runeConvertService.cleanFileWithRaid()
+    this.wizardService.generateWizardJSON(json)
   }
 
 }

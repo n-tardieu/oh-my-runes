@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { Rune } from 'src/app/core/models/rune.model';
 //import { Subscription} from "rxjs/Subscription"
 import { RuneService } from 'src/app/services/rune.service';
@@ -32,7 +33,7 @@ export class HomepageComponent implements OnInit, AfterViewInit {
   runes: Rune[] = []
   // runeSubscription: Subscription;
 
-  constructor(private runeService: RuneService, private wizardService: WizardService, private runeConvertService: RunesConvertService) { }
+  constructor(private router: Router, private wizardService: WizardService, private runeConvertService: RunesConvertService) { }
 
   ngOnInit(): void {
     /*
@@ -53,6 +54,10 @@ export class HomepageComponent implements OnInit, AfterViewInit {
   downloadWizardJSON(): void {
     let json = this.runeConvertService.cleanFileWithRaid()
     this.wizardService.generateWizardJSON(json)
+  }
+
+  moveToDashbord(): void {
+    this.router.navigate(['/me']);
   }
 
   handle(event: any) {
