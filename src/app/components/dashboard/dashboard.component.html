@@ -1,6 +1,10 @@
 <div class="container">
     <h2>Summoner's dashbord</h2>
     <div class="container-content">
+        <div class="container-content-upgrade-activated">
+            <h3>Simulate upgrade runes (With Enchanted Gem)</h3>
+        </div>
+
         <div class="container-content-filter">
             <mat-radio-group [(ngModel)]="gemGrade" class="section-gems" aria-label="Select an option">
                 <mat-radio-button class="legOrHero" value="leg">Use Legendary gems</mat-radio-button>
@@ -17,7 +21,7 @@
 
             <div class="section-two-import-button">
                 <button mat-raised-button *ngIf="isValid" (click)="downloadWizardJSON()" class="btn-valid">Download
-                    updated
+                    upgraded
                     file
                     <mat-icon class="icon">file_download_on</mat-icon>
                 </button>
