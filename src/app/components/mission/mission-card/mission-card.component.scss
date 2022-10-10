@@ -20,12 +20,18 @@
     padding: 42px;
 }
 
-.container-content-rune-background {
-    background-color: $pacific;
+.container-content-rune {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: gainsboro;
     border-radius: 4px;
-    opacity: 0.3;
     width: 76px;
     height: 76px;
+    img {
+        height: 60px;
+        width: 60px;
+    }
 }
 
 .container-content-mission {
