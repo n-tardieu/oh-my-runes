@@ -23,6 +23,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LevelStepperComponent } from './components/level-stepper/level-stepper.component';
 import { MissionCardComponent } from './components/mission/mission-card/mission-card.component';
 import { MissionsListComponent } from './components/mission/missions-list/missions-list.component';
+import { TagComponent } from './components/tag/tag.component';
 
 
 
@@ -33,7 +34,8 @@ import { MissionsListComponent } from './components/mission/missions-list/missio
     DashboardComponent,
     LevelStepperComponent,
     MissionCardComponent,
-    MissionsListComponent
+    MissionsListComponent,
+    TagComponent
   ],
   imports: [
     BrowserModule,
