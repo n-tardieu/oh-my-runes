@@ -9,7 +9,7 @@ import { WizardService } from 'src/app/services/wizard.service';
 })
 export class DashboardComponent implements OnInit {
 
-  isValid = false;
+  isValid = true;
 
   // TODO implement form for generate JSON
   // form

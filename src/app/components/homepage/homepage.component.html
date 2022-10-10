@@ -16,20 +16,12 @@
             </div>
             <div class="section-two-import-button">
                 <button mat-raised-button *ngIf="isValid" (click)="moveToDashbord()" class="btn-valid">Go to the dashbord <mat-icon class="icon">file_download_on</mat-icon></button>
-                <button mat-flat-button disabled *ngIf="!isValid" class="btn-invalid">Full grinds runes<mat-icon
+                <button mat-flat-button disabled *ngIf="!isValid" class="btn-invalid">Go to the dashbords<mat-icon
                         class="icon">file_download_off</mat-icon></button>
             </div>
-            <mat-radio-group [(ngModel)]="gemGrade" class="section-gems" aria-label="Select an option">
-                <mat-radio-button class="legOrHero" value="leg">Use Legendary gems</mat-radio-button>
-                <br>
-                <mat-radio-button class="legOrHero" value="hero">Use Hero gems</mat-radio-button>
-            </mat-radio-group>
             <div class="section-option">
-                <!-- <mat-slide-toggle [(ngModel)]="isEquipedRunes">Use equiped runes</mat-slide-toggle> -->
-                <mat-slide-toggle [(ngModel)]="isOnlyStorageRunes">Exclude runes from island monsters</mat-slide-toggle>
-                <br>
-                <mat-slide-toggle [(ngModel)]="isAbort">Abort if default is higher</mat-slide-toggle>
-
+                <br/>
+                <mat-slide-toggle [(ngModel)]="isDemonstration">Use JSON (demo file)</mat-slide-toggle>
             </div>
             <div class="section-manage-json">
                 <div *ngIf="isValid" class="section-json-name">

@@ -23,12 +23,8 @@ export class HomepageComponent implements OnInit, AfterViewInit {
   data: any;
   isValid = false;
 
-  // TODO implement form for generate JSON
-  // form
-  public isEquipedRunes = true;
-  public isOnlyStorageRunes = true;
-  public isAbort = true;
-  public gemGrade = 'hero';
+  isDemonstration: boolean = false
+
 
   runes: Rune[] = []
   // runeSubscription: Subscription;
@@ -57,7 +53,7 @@ export class HomepageComponent implements OnInit, AfterViewInit {
   }
 
   moveToDashbord(): void {
-    this.router.navigate(['/me']);
+    this.router.navigate(['/dashboard']);
   }
 
   handle(event: any) {
@@ -70,11 +66,6 @@ export class HomepageComponent implements OnInit, AfterViewInit {
       this.wizardService.setWizard(wizard_data)
     };
     this.isValid = true
-  }
-
-  openDialog() {
-    //  this.isDialogOpen = true
-    //  this.dialog.open(LoadingDialogComponent, { disableClose: true });
   }
 
   resetFile(){
