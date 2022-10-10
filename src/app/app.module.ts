@@ -21,8 +21,8 @@ import { MatButtonModule} from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LevelStepperComponent } from './components/level-stepper/level-stepper.component';
-import { MissionCardComponent } from './components/mission-card/mission-card.component';
-import { MissionsListComponent } from './components/missions-list/missions-list.component';
+import { MissionCardComponent } from './components/mission/mission-card/mission-card.component';
+import { MissionsListComponent } from './components/mission/missions-list/missions-list.component';
 
 
 
