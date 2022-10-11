@@ -1,3 +1,5 @@
-<div class="container">
-    <p>tag</p>
+<div [ngClass]="type === 'spd' ? 'container' : 'container--caiross'">
+    <div [ngClass]="type === 'spd' ? 'container_tag' : 'container_tag--caiross'">
+        <h4>{{ getTitle()}}</h4>
+    </div>
 </div>

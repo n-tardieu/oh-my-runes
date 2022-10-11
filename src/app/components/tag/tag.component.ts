@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'tag',
@@ -7,9 +7,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TagComponent implements OnInit {
 
+  @Input()
+  type!: string;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+
+  getTitle() {
+    if (this.type == 'gb') {
+      return 'GB'
+    } else if (this.type == 'db') {
+      return 'DB'
+    } else if (this.type == 'nb') {
+      return 'NB'
+    } else if (this.type == 'spd') {
+      return 'speed'
+    }
+    return 'undefined'
   }
 
 }
