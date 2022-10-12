@@ -33,8 +33,6 @@ export class Rune implements SWCalculatorTypes.Rune {
     secondaryEffects: Effect[] = []
     unitImage?: string
 
-
-
     constructor(data: SWCalculatorTypes.Rune) {
         this.setType = data.setType
         this.isAntique = data.isAntique

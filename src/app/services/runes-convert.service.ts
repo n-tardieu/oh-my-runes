@@ -164,10 +164,31 @@ export class RunesConvertService {
     return rune
   }
 
+  efficiency(rune: any): any {
+    let ratio = 0.0;
+
+    // main stat
+    ratio += rune.primaryEffect.value / (Rune.mainStatEfficiency as any).get(rune.primaryEffect.type)
+
+    rune.secondaryEffects.forEach((effect: any) => {
+      const value = effect.value + effect.grindstones
+      ratio += value / ((Rune.subStatEfficiency as any) * (Rune.subStatCustomEfficiency as any).get(effect.type))
+    })
+
+    if (rune.innateEffect) {
+      if (rune.subStatEfficiency.has(rune.innateEffect.type)) {
+        ratio += rune.innateEffect.value / (Rune.subStatEfficiency as any).get(rune.innateEffect.type)
+      }
+    }
+
+    let efficiency = (ratio / 2.8) * 100;
+    return efficiency
+  }
+
   runeExportFormat(rune: Rune) {
 
-    console.log("__rune ", rune );
-    
+    console.log("__rune ", rune);
+
     this.id += 1
     let isAntique = 0
     let secEffect: any = []
