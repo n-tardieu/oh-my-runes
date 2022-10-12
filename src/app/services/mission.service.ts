@@ -39,7 +39,8 @@ export class MissionService {
     const stepGoal = (difficulty == 'easy' ? stepEasy : stepHard).find(step => {
       if (number < step) {
         return true
-      }
+      } else 
+      return false 
 
     });
     if (stepGoal === undefined) return (difficulty == 'easy' ? stepEasy.at(-1) : stepHard.at(-1))

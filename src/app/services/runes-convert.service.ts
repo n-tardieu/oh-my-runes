@@ -4,6 +4,7 @@ import { Rune } from '../core/models/rune.model';
 import { SWCalculatorTypes } from '../core/types/sw-calculator.types';
 import { SWExporterTypes } from '../core/types/sw-exporter.types';
 import { Wizard } from '../core/types/sw-wizard.types';
+import { RuneService } from './rune.service';
 import { WizardService } from './wizard.service';
 
 @Injectable({
@@ -23,7 +24,7 @@ export class RunesConvertService {
   gemGrade: 'leg' | 'hero' = 'leg'
 
 
-  constructor(private wizardService: WizardService) {
+  constructor(private wizardService: WizardService, private runeService: RuneService) {
     this.wizardSubscription = this.wizardService.wizardSubject$.subscribe((wizard: Wizard) => {
       this.wizard = wizard
     })
@@ -125,6 +126,9 @@ export class RunesConvertService {
     jsonToSend.unit_list = unit_clear
     jsonToSend.rune_craft_item_list = [] // permet de supprimer toutes les meules/gemmes du storage
 
+    // a mettre a jour mieux
+    this.runeService.setRunes(_newRunes)
+
     return jsonToSend
   }
 
@@ -187,7 +191,7 @@ export class RunesConvertService {
 
   runeExportFormat(rune: Rune) {
 
-    console.log("__rune ", rune);
+    // console.log("__rune ", rune);
 
     this.id += 1
     let isAntique = 0
