@@ -12,7 +12,7 @@ export class RuneService {
   private runesList: Rune[] = []
 
   emitRunesSubject() {
-    console.log("Runes emit");
+    console.log("Runes emit", this.runesList);
     this.runesSubject$.next(this.runesList.slice())
   }
 
@@ -20,4 +20,8 @@ export class RuneService {
     this.runesList = runes
     this.emitRunesSubject()
   }
+  getRunes() {
+    return this.runesList
+  }
+
 }

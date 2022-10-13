@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { Rune } from '../core/models/rune.model';
 import { SWExporterTypes } from '../core/types/sw-exporter.types';
 import { RuneService } from './rune.service';
@@ -9,24 +9,35 @@ import { RuneService } from './rune.service';
 })
 export class MissionService {
 
-  runeSubscription: Subscription;
-  runes: Rune[] = []
+  missionSubject$ = new Subject<any[]>()
 
-  constructor(private runeService: RuneService) {
-    this.runeSubscription = this.runeService.runesSubject$.subscribe((runes: Rune[]) => {
-      this.runes = runes
-    })
+  private missionList: any[] = []
+
+  emitMissionsSubject() {
+    console.log("Mission emit");
+    this.missionSubject$.next(this.missionList.slice())
   }
 
-  getSpeedMission(type: SWExporterTypes.SetType, speedMin: number): number {
-    const result = this.runes.filter((rune: Rune) => {
+  setMissions(missions: any[]) {
+    this.missionList = missions
+    this.emitMissionsSubject()
+  }
+
+  constructor() { }
+
+  getSpeedMission(runes: Rune[], type: SWExporterTypes.SetType, speedMin: number): number {
+    console.log(runes);
+    
+    const result = runes.filter((rune: Rune) => {
       return rune.setType == type
-    }).length
-    return result
+    })
+    console.log("res ", result);
+    
+    return result.length
   }
 
-  getEffMission(type: SWExporterTypes.SetType, efficiency: number): number {
-    const result = this.runes.filter((rune: Rune) => {
+  getEffMission(runes: Rune[], type: SWExporterTypes.SetType, efficiency: number): number {
+    const result = runes.filter((rune: Rune) => {
       return rune.setType == type
     }).length
     return result
@@ -39,8 +50,8 @@ export class MissionService {
     const stepGoal = (difficulty == 'easy' ? stepEasy : stepHard).find(step => {
       if (number < step) {
         return true
-      } else 
-      return false 
+      } else
+        return false
 
     });
     if (stepGoal === undefined) return (difficulty == 'easy' ? stepEasy.at(-1) : stepHard.at(-1))

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
+import { RunesListParams } from '../core/interfaces/runes-list-params.interfaces';
 import { Rune } from '../core/models/rune.model';
 import { SWCalculatorTypes } from '../core/types/sw-calculator.types';
 import { SWExporterTypes } from '../core/types/sw-exporter.types';
@@ -10,6 +11,7 @@ import { WizardService } from './wizard.service';
 @Injectable({
   providedIn: 'root'
 })
+
 export class RunesConvertService {
 
   wizard: Wizard | undefined = undefined
@@ -18,10 +20,26 @@ export class RunesConvertService {
   // TODO create true id
   id = 1
 
-  // TODO create Filter service
-  isOnlyStorageRunes = true
-  isAbort = false
-  gemGrade: 'leg' | 'hero' = 'leg'
+  runesListParamsSubject$ = new Subject<RunesListParams>()
+
+  private runesListParams: RunesListParams = {
+    isOnlyStorageRunes: true,
+    isAbort: false,
+    gemGrade: 'hero'
+  }
+
+  emitRunesListParamsSubject() {
+    console.log("Runes emit", this.runesListParams);
+    this.runesListParamsSubject$.next(this.runesListParams)
+  }
+
+  setRunes(runesListParams: RunesListParams) {
+    this.runesListParams = runesListParams
+    this.emitRunesListParamsSubject()
+  }
+  getRunes() {
+    return this.runesListParams
+  }
 
 
   constructor(private wizardService: WizardService, private runeService: RuneService) {
@@ -83,7 +101,7 @@ export class RunesConvertService {
     let _newRunes: Rune[] = []
 
     let unit_clear = this.wizard?.unit_list.map(unit => {
-      if (unit.building_id == 0 && this.isOnlyStorageRunes == true) {
+      if (unit.building_id == 0 && this.runesListParams.isOnlyStorageRunes == true) {
         return unit
       }
       let template_unit = {
@@ -103,7 +121,7 @@ export class RunesConvertService {
     }
 
     this.wizard?.unit_list.filter(unit => {
-      if ((unit.building_id == 0 && this.isOnlyStorageRunes == true)) {
+      if ((unit.building_id == 0 && this.runesListParams.isOnlyStorageRunes == true)) {
       } else {
         return unit
       }
@@ -136,7 +154,7 @@ export class RunesConvertService {
     if (rune.secondaryEffects) {
       let nbSlots = rune.secondaryEffects
       for (var slot = 0; slot < nbSlots.length; slot++) {
-        if (this.gemGrade == "leg") {
+        if (this.runesListParams.gemGrade == "leg") {
           if (rune.secondaryEffects[slot].gems == 1) {
             if (rune.isAntique) {
               rune.secondaryEffects[slot].value = Rune.enchanteGemAntiqueLeg.get(rune.secondaryEffects[slot].type) as number
@@ -153,14 +171,14 @@ export class RunesConvertService {
         else {
           if (rune.secondaryEffects[slot].gems == 1) {
             if (rune.isAntique) {
-              rune.secondaryEffects[slot].value = (rune.secondaryEffects[slot].value > (Rune.enchanteGemAntiqueHero.get(rune.secondaryEffects[slot].type) as number) && this.isAbort) ? rune.secondaryEffects[slot].value : Rune.enchanteGemAntiqueHero.get(rune.secondaryEffects[slot].type) as number
-              rune.secondaryEffects[slot].grindstones = (rune.secondaryEffects[slot].grindstones > (Rune.grindstonesHero.get(rune.secondaryEffects[slot].type) as number) && this.isAbort) ? rune.secondaryEffects[slot].grindstones : Rune.grindstonesHero.get(rune.secondaryEffects[slot].type) as number
+              rune.secondaryEffects[slot].value = (rune.secondaryEffects[slot].value > (Rune.enchanteGemAntiqueHero.get(rune.secondaryEffects[slot].type) as number) && this.runesListParams.isAbort) ? rune.secondaryEffects[slot].value : Rune.enchanteGemAntiqueHero.get(rune.secondaryEffects[slot].type) as number
+              rune.secondaryEffects[slot].grindstones = (rune.secondaryEffects[slot].grindstones > (Rune.grindstonesHero.get(rune.secondaryEffects[slot].type) as number) && this.runesListParams.isAbort) ? rune.secondaryEffects[slot].grindstones : Rune.grindstonesHero.get(rune.secondaryEffects[slot].type) as number
             } else {
-              rune.secondaryEffects[slot].value = (rune.secondaryEffects[slot].value > (Rune.enchanteGemHero.get(rune.secondaryEffects[slot].type) as number) && this.isAbort) ? rune.secondaryEffects[slot].value : Rune.enchanteGemHero.get(rune.secondaryEffects[slot].type) as number
-              rune.secondaryEffects[slot].grindstones = (rune.secondaryEffects[slot].grindstones > (Rune.grindstonesHero.get(rune.secondaryEffects[slot].type) as number) && this.isAbort) ? rune.secondaryEffects[slot].grindstones : Rune.grindstonesHero.get(rune.secondaryEffects[slot].type) as number
+              rune.secondaryEffects[slot].value = (rune.secondaryEffects[slot].value > (Rune.enchanteGemHero.get(rune.secondaryEffects[slot].type) as number) && this.runesListParams.isAbort) ? rune.secondaryEffects[slot].value : Rune.enchanteGemHero.get(rune.secondaryEffects[slot].type) as number
+              rune.secondaryEffects[slot].grindstones = (rune.secondaryEffects[slot].grindstones > (Rune.grindstonesHero.get(rune.secondaryEffects[slot].type) as number) && this.runesListParams.isAbort) ? rune.secondaryEffects[slot].grindstones : Rune.grindstonesHero.get(rune.secondaryEffects[slot].type) as number
             }
           } else {
-            rune.secondaryEffects[slot].grindstones = (rune.secondaryEffects[slot].grindstones > (Rune.grindstonesHero.get(rune.secondaryEffects[slot].type) as number) && this.isAbort) ? rune.secondaryEffects[slot].grindstones : Rune.grindstonesHero.get(rune.secondaryEffects[slot].type) as number
+            rune.secondaryEffects[slot].grindstones = (rune.secondaryEffects[slot].grindstones > (Rune.grindstonesHero.get(rune.secondaryEffects[slot].type) as number) && this.runesListParams.isAbort) ? rune.secondaryEffects[slot].grindstones : Rune.grindstonesHero.get(rune.secondaryEffects[slot].type) as number
           }
         }
       }

@@ -54,6 +54,7 @@ export class HomepageComponent implements OnInit, AfterViewInit {
 
   moveToDashbord(): void {
     this.router.navigate(['/dashboard']);
+   // this.runeConvertService.cleanFileWithRaid() //TODO
   }
 
   handle(event: any) {
