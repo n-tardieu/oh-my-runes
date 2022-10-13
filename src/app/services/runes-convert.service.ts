@@ -92,6 +92,38 @@ export class RunesConvertService {
     }
   }
 
+  useRuneForge() {
+    // constantes de la methode
+    let _runeList: Rune[] = []
+    let _runeUnit: Rune[] = []
+
+    let _newRunes: Rune[] = []
+
+    this.wizard?.runes.map(runeToConverte => {
+      return this.convertOneRune(runeToConverte)
+    }).map((n: any) => _runeList.push(n))
+
+    this.wizard?.unit_list.filter(unit => {
+      if ((unit.building_id == 0 && this.runesListParams.isOnlyStorageRunes == true)) {
+      } else {
+        return unit
+      }
+    })
+      .forEach(element => {
+        element.runes.forEach((rune: any) => {
+          let runeToSet = this.convertOneRune(rune)
+          _runeUnit.push(new Rune(runeToSet))
+        })
+      });
+
+    _runeUnit.concat(_runeList).forEach(rune => {
+      let runeUpgraded: any = this.upgradeRunes(rune)
+      _newRunes.push(runeUpgraded)
+    });
+
+    return _newRunes
+  }
+
   cleanFileWithRaid() {
 
     // constantes de la methode
