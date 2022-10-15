@@ -14,7 +14,7 @@ export class RuneService {
   private runesList: Rune[] = []
 
   emitRunesSubject() {
-    console.log("Runes emit !");
+    console.log("Runes has emit !");
     this.runesSubject$.next(this.runesList.slice())
   }
 

@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Rune } from 'src/app/core/models/rune.model';
+import { Wizard } from 'src/app/core/types/sw-wizard.types';
 //import { Subscription} from "rxjs/Subscription"
 import { RuneService } from 'src/app/services/rune.service';
 import { RunesConvertService } from 'src/app/services/runes-convert.service';
@@ -29,7 +30,7 @@ export class HomepageComponent implements OnInit, AfterViewInit {
   runes: Rune[] = []
   // runeSubscription: Subscription;
 
-  constructor(private router: Router, private wizardService: WizardService, private runeConvertService: RunesConvertService) { }
+  constructor(private router: Router, private wizardService: WizardService, private runeService : RuneService, private runeConvertService: RunesConvertService) { }
 
   ngOnInit(): void {
     /*
@@ -64,7 +65,7 @@ export class HomepageComponent implements OnInit, AfterViewInit {
     fileReader.readAsText(this.fileToUpload as File, "UTF-8");
     fileReader.onload = () => {
       const wizard_data = JSON.parse(fileReader.result as string);
-      this.wizardService.setWizard(wizard_data)
+      this.feedServices(wizard_data)
     };
     this.isValid = true
   }
@@ -72,6 +73,11 @@ export class HomepageComponent implements OnInit, AfterViewInit {
   resetFile(){
     (document.querySelector('input') as HTMLInputElement).value = "";
     this.isValid = false
+  }
+
+  feedServices(wizard_data: Wizard){
+    this.wizardService.setWizard(wizard_data)
+    this.runeService.setRunes(this.runeConvertService.useRuneForge(wizard_data))
   }
 
 }
