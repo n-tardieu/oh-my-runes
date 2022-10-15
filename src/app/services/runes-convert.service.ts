@@ -30,11 +30,11 @@ export class RunesConvertService {
     this.runesListParamsSubject$.next(this.runesListParams)
   }
 
-  setRunes(runesListParams: RunesListParams) {
+  setRunesListParams(runesListParams: RunesListParams) {
     this.runesListParams = runesListParams
     this.emitRunesListParamsSubject()
   }
-  getRunes() {
+  getRunesListParams() {
     return this.runesListParams
   }
 
@@ -167,7 +167,7 @@ export class RunesConvertService {
     jsonToSend.rune_craft_item_list = [] // permet de supprimer toutes les meules/gemmes du storage
 
     // a mettre a jour mieux
-   // this.runeService.setRunes(_newRunes)
+    // this.runeService.setRunes(_newRunes)
 
     return jsonToSend
   }
@@ -212,14 +212,12 @@ export class RunesConvertService {
     let ratio = 0;
 
     // main stat
-    ratio += rune.primaryEffect.value / (Rune.mainStatEfficiency as any).get(rune.primaryEffect.type)
+    ratio += rune.primaryEffect.value / ((Rune.mainStatEfficiency as any).get(rune.primaryEffect.type))
 
-    
+
     rune.secondaryEffects.forEach((effect: any) => {
       const value = effect.value + effect.grindstones
-      console.log(value);
-      
-      ratio += value / ((Rune.subStatEfficiency as any) * (Rune.subStatCustomEfficiency as any).get(effect.type))
+      ratio += value / ((Rune.subStatEfficiency as any).get(effect.type) * (Rune.subStatCustomEfficiency as any).get(effect.type))
     })
 
     // TODO Fix innateEffect
@@ -231,11 +229,11 @@ export class RunesConvertService {
     }
     */
 
-    
 
     let efficiency = (ratio / 2.8) * 100;
-    console.log("eff : ", efficiency);
+    //  console.log("eff : ", efficiency);
 
+    // TODO fix infinit
     return efficiency
   }
 

@@ -34,7 +34,10 @@ export class MissionService {
 
   getEffMission(runes: Rune[], type: SWExporterTypes.SetType, efficiency: number): number {
     const result = runes.filter((rune: Rune) => {
-      return rune.setType == type && (this.runesConvertService.efficiency(rune)) >= efficiency
+      console.log(this.runesConvertService.efficiency(rune));
+      
+      if (rune.setType == type && (this.runesConvertService.efficiency(rune) >= 200)) return true
+      else return false
     }).length
     return result
   }
