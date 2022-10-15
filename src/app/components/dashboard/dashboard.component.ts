@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit {
   }
 
   downloadWizardJSON(): void {
-    let json = this.runeConvertService.cleanFileWithRaid()
+   // let json = this.runeConvertService.cleanFileWithRaid()
    // this.wizardService.generateWizardJSON(json)
   }
 

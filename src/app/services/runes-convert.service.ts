@@ -14,9 +14,6 @@ import { WizardService } from './wizard.service';
 
 export class RunesConvertService {
 
-  wizard: Wizard | undefined = undefined
-  wizardSubscription: Subscription;
-
   // TODO create true id
   id = 1
 
@@ -29,7 +26,7 @@ export class RunesConvertService {
   }
 
   emitRunesListParamsSubject() {
-    console.log("Runes emit", this.runesListParams);
+    console.log("Runes params emit", this.runesListParams);
     this.runesListParamsSubject$.next(this.runesListParams)
   }
 
@@ -39,13 +36,6 @@ export class RunesConvertService {
   }
   getRunes() {
     return this.runesListParams
-  }
-
-
-  constructor(private wizardService: WizardService, private runeService: RuneService) {
-    this.wizardSubscription = this.wizardService.wizardSubject$.subscribe((wizard: Wizard) => {
-      this.wizard = wizard
-    })
   }
 
   convertAllRunes(exportRunes: any) {
@@ -92,18 +82,18 @@ export class RunesConvertService {
     }
   }
 
-  useRuneForge() {
+  useRuneForge(wizard: Wizard) {
     // constantes de la methode
     let _runeList: Rune[] = []
     let _runeUnit: Rune[] = []
 
     let _newRunes: Rune[] = []
 
-    this.wizard?.runes.map(runeToConverte => {
+    wizard?.runes.map(runeToConverte => {
       return this.convertOneRune(runeToConverte)
     }).map((n: any) => _runeList.push(n))
 
-    this.wizard?.unit_list.filter(unit => {
+    wizard?.unit_list.filter(unit => {
       if ((unit.building_id == 0 && this.runesListParams.isOnlyStorageRunes == true)) {
       } else {
         return unit
@@ -124,7 +114,7 @@ export class RunesConvertService {
     return _newRunes
   }
 
-  cleanFileWithRaid() {
+  cleanFileWithRaid(wizard: Wizard) {
 
     // constantes de la methode
     let _runeList: Rune[] = []
@@ -132,7 +122,7 @@ export class RunesConvertService {
 
     let _newRunes: Rune[] = []
 
-    let unit_clear = this.wizard?.unit_list.map(unit => {
+    let unit_clear = wizard?.unit_list.map(unit => {
       if (unit.building_id == 0 && this.runesListParams.isOnlyStorageRunes == true) {
         return unit
       }
@@ -143,16 +133,16 @@ export class RunesConvertService {
       return template_unit
     })
 
-    this.wizard?.runes.map(runeToConverte => {
+    wizard?.runes.map(runeToConverte => {
       return this.convertOneRune(runeToConverte)
     }).map((n: any) => _runeList.push(n))
 
 
     let jsonToSend = {
-      ...this.wizard
+      ...wizard
     }
 
-    this.wizard?.unit_list.filter(unit => {
+    wizard?.unit_list.filter(unit => {
       if ((unit.building_id == 0 && this.runesListParams.isOnlyStorageRunes == true)) {
       } else {
         return unit
@@ -177,7 +167,7 @@ export class RunesConvertService {
     jsonToSend.rune_craft_item_list = [] // permet de supprimer toutes les meules/gemmes du storage
 
     // a mettre a jour mieux
-    this.runeService.setRunes(_newRunes)
+   // this.runeService.setRunes(_newRunes)
 
     return jsonToSend
   }
@@ -219,23 +209,33 @@ export class RunesConvertService {
   }
 
   efficiency(rune: any): any {
-    let ratio = 0.0;
+    let ratio = 0;
 
     // main stat
     ratio += rune.primaryEffect.value / (Rune.mainStatEfficiency as any).get(rune.primaryEffect.type)
 
+    
     rune.secondaryEffects.forEach((effect: any) => {
       const value = effect.value + effect.grindstones
+      console.log(value);
+      
       ratio += value / ((Rune.subStatEfficiency as any) * (Rune.subStatCustomEfficiency as any).get(effect.type))
     })
 
+    // TODO Fix innateEffect
+    /*
     if (rune.innateEffect) {
       if (rune.subStatEfficiency.has(rune.innateEffect.type)) {
         ratio += rune.innateEffect.value / (Rune.subStatEfficiency as any).get(rune.innateEffect.type)
       }
     }
+    */
+
+    
 
     let efficiency = (ratio / 2.8) * 100;
+    console.log("eff : ", efficiency);
+
     return efficiency
   }
 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { Rune } from '../core/models/rune.model';
 import { SWExporterTypes } from '../core/types/sw-exporter.types';
-import { RuneService } from './rune.service';
+import { RunesConvertService } from './runes-convert.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,22 +23,18 @@ export class MissionService {
     this.emitMissionsSubject()
   }
 
-  constructor() { }
+  constructor(private runesConvertService: RunesConvertService) { }
 
   getSpeedMission(runes: Rune[], type: SWExporterTypes.SetType, speedMin: number): number {
-    console.log(runes);
-    
     const result = runes.filter((rune: Rune) => {
       return rune.setType == type
     })
-    console.log("res ", result);
-    
     return result.length
   }
 
   getEffMission(runes: Rune[], type: SWExporterTypes.SetType, efficiency: number): number {
     const result = runes.filter((rune: Rune) => {
-      return rune.setType == type
+      return rune.setType == type && (this.runesConvertService.efficiency(rune)) >= efficiency
     }).length
     return result
   }

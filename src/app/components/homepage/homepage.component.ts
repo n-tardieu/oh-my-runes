@@ -48,8 +48,8 @@ export class HomepageComponent implements OnInit, AfterViewInit {
   }
 
   downloadWizardJSON(): void {
-    let json = this.runeConvertService.cleanFileWithRaid()
-    this.wizardService.generateWizardJSON(json)
+    // let json = this.runeConvertService.cleanFileWithRaid()
+    // this.wizardService.generateWizardJSON(json)
   }
 
   moveToDashbord(): void {

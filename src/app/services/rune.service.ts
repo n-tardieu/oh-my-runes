@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { Rune } from '../core/models/rune.model';
+import { Wizard } from '../core/types/sw-wizard.types';
+import { RunesConvertService } from './runes-convert.service';
+import { WizardService } from './wizard.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,11 +11,10 @@ import { Rune } from '../core/models/rune.model';
 export class RuneService {
 
   runesSubject$ = new Subject<Rune[]>()
-
   private runesList: Rune[] = []
 
   emitRunesSubject() {
-    console.log("Runes emit", this.runesList);
+    console.log("Runes emit !");
     this.runesSubject$.next(this.runesList.slice())
   }
 

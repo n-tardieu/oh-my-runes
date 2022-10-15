@@ -22,7 +22,7 @@ export class MissionsListComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.runeSubscription = this.runeService.runesSubject$.subscribe((runes: Rune[]) => {
       this.runes = runes
-      console.log("runes ", runes);
+      console.log("runeSubscription");
     })
 
   }

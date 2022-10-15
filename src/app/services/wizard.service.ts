@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Wizard } from '../core/types/sw-wizard.types';
+import { RuneService } from './rune.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +11,6 @@ export class WizardService {
   wizardSubject$ = new Subject<Wizard>()
 
   private wizard_data: any
-
-  constructor() {
-  }
 
   emitWizardSubject() {
     console.log('Wizard has emit !');
@@ -36,6 +34,10 @@ export class WizardService {
     this.wizard_data = undefined
     this.emitWizardSubject()
   }
+
+  constructor() {
+  }
+
 
   generateWizardJSON(json: any) {
     this.downloadObjectAsJson(json, `ohmyRunes`)
