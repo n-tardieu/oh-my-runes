@@ -27,16 +27,14 @@ export class MissionService {
 
   getSpeedMission(runes: Rune[], type: SWExporterTypes.SetType, speedMin: number): number {
     const result = runes.filter((rune: Rune) => {
-      return rune.setType == type
-    })
-    return result.length
+      return rune.setType == type && ((this.runesConvertService.runeSpeed(rune) >= speedMin))
+    }).length
+    return result
   }
 
   getEffMission(runes: Rune[], type: SWExporterTypes.SetType, efficiency: number): number {
     const result = runes.filter((rune: Rune) => {
-      console.log(this.runesConvertService.efficiency(rune));
-      
-      if (rune.setType == type && (this.runesConvertService.efficiency(rune) >= 200)) return true
+      if (rune.setType == type && (this.runesConvertService.efficiency(rune) >= efficiency)) return true
       else return false
     }).length
     return result

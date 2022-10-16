@@ -208,12 +208,21 @@ export class RunesConvertService {
     return rune
   }
 
-  efficiency(rune: any): any {
+  runeSpeed(rune: Rune) {
+    let spd = 0
+    rune.secondaryEffects.forEach((effect: any) => {
+      if (effect.type == SWExporterTypes.EffectType.SPEED) {
+        spd = effect.value + effect.grindstones
+      }
+    })
+    return spd
+  }
+
+  efficiency(rune: Rune): any {
     let ratio = 0;
 
     // main stat
     ratio += rune.primaryEffect.value / ((Rune.mainStatEfficiency as any).get(rune.primaryEffect.type))
-
 
     rune.secondaryEffects.forEach((effect: any) => {
       const value = effect.value + effect.grindstones
@@ -221,19 +230,13 @@ export class RunesConvertService {
     })
 
     // TODO Fix innateEffect
-    /*
     if (rune.innateEffect) {
-      if (rune.subStatEfficiency.has(rune.innateEffect.type)) {
+      if (Rune.subStatEfficiency.has(rune.innateEffect.type)) {
         ratio += rune.innateEffect.value / (Rune.subStatEfficiency as any).get(rune.innateEffect.type)
       }
     }
-    */
-
 
     let efficiency = (ratio / 2.8) * 100;
-    //  console.log("eff : ", efficiency);
-
-    // TODO fix infinit
     return efficiency
   }
 

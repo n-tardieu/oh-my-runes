@@ -67,17 +67,17 @@ export class Rune implements SWCalculatorTypes.Rune {
     ])
 
     static subStatCustomEfficiency: Map<SWExporterTypes.EffectType, number> = new Map([
-        [SWExporterTypes.EffectType.HP, 0],
-        [SWExporterTypes.EffectType.HPPercent, 0],
+        [SWExporterTypes.EffectType.HP, 0.5],
+        [SWExporterTypes.EffectType.HPPercent, 1],
         [SWExporterTypes.EffectType.ATK, 0.5],
         [SWExporterTypes.EffectType.ATKPercent, 1],
-        [SWExporterTypes.EffectType.DEF, 0],
-        [SWExporterTypes.EffectType.DEFPercent, 0],
+        [SWExporterTypes.EffectType.DEF, 0.5],
+        [SWExporterTypes.EffectType.DEFPercent, 1],
         [SWExporterTypes.EffectType.SPEED, 1],
         [SWExporterTypes.EffectType.CRITRate, 1],
         [SWExporterTypes.EffectType.CRITDmg, 1],
-        [SWExporterTypes.EffectType.RES, 0],
-        [SWExporterTypes.EffectType.ACC, 0],
+        [SWExporterTypes.EffectType.RES, 1],
+        [SWExporterTypes.EffectType.ACC, 1],
     ])
 
     static mainStatEfficiency: Map<SWExporterTypes.EffectType, number> = new Map([
