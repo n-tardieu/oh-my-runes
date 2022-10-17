@@ -53,7 +53,8 @@ export class MissionsListComponent implements OnInit, OnChanges, DoCheck {
   }
 
   getMission() {
-    console.log("Vio 104% : ", this.missionService.getEffMission(this.runes, SWExporterTypes.SetType.VIOLENT, 104))
+    let vio = this.missionService.getEffMission(this.runes, SWExporterTypes.SetType.VIOLENT, 115)
+    console.log(`Vio 120%  ${vio} / ${this.missionService.getStepMission(vio, "easy")}`)
     console.log("Will 108% : ", this.missionService.getEffMission(this.runes, SWExporterTypes.SetType.WILL, 108))
     console.log("Swift 26spd : ", this.missionService.getSpeedMission(this.runes, SWExporterTypes.SetType.SWIFT, 26))
   }

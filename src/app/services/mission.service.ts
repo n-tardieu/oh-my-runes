@@ -41,8 +41,8 @@ export class MissionService {
   }
 
   getStepMission(number: number, difficulty: 'easy' | 'hard') {
-    const stepEasy = [5, 10, 25, 30, 50];
-    const stepHard = [3, 5, 10, 15, 20];
+    const stepEasy = [5, 10, 25, 30, 50, 100, 150, 300];
+    const stepHard = [3, 5, 10, 15, 20, 50, 75, 100];
 
     const stepGoal = (difficulty == 'easy' ? stepEasy : stepHard).find(step => {
       if (number < step) {
@@ -53,5 +53,10 @@ export class MissionService {
     });
     if (stepGoal === undefined) return (difficulty == 'easy' ? stepEasy.at(-1) : stepHard.at(-1))
     return stepGoal
+  }
+
+  // TODO
+  getNumberRomanize(){
+    return 'IV'
   }
 }
