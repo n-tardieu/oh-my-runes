@@ -18,12 +18,12 @@ export class MissionsListComponent implements OnInit, OnChanges, DoCheck {
   @Input()
   missionsList: Mission[] = [
     {
-      title: 'Mission Name',
+      title: 'Mission TEST',
       tag: ['spd', 'db'],
-      missionImg: '',
+      missionImg: 'energy',
       target: 1,
       missionLevel: 1,
-      avancementCount: 1,
+      avancementCount: 0,
       description: "undefined",
       percentage: 0,
       xp: 1
