@@ -18,24 +18,15 @@ export class MissionsListComponent implements OnInit, OnChanges, DoCheck {
   @Input()
   missionsList: Mission[] = [
     {
-      title: 'Combatant IV (3/12)',
-      tag: ['db', 'spd'],
+      title: 'Mission Name',
+      tag: ['spd', 'db'],
       missionImg: '',
-      target: 12,
-      avancementCount: 3,
-      description: "Avoir récolter 12 runes d'une qualité platine",
-      percentage: 25,
-      xp: 100
-    },
-    {
-      title: 'Combatant V (25/30)',
-      tag: ['db', 'spd'],
-      missionImg: '',
-      target: 30,
-      avancementCount: 25,
-      description: "Avoir récolter 30 runes d'une qualité platine",
-      percentage: 83.3,
-      xp: 200
+      target: 1,
+      missionLevel: 1,
+      avancementCount: 1,
+      description: "undefined",
+      percentage: 0,
+      xp: 1
     }
   ]
 
@@ -51,6 +42,7 @@ export class MissionsListComponent implements OnInit, OnChanges, DoCheck {
   ngOnInit(): void {
     this.getRunes()
     this.getRunesListParams()
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -58,7 +50,7 @@ export class MissionsListComponent implements OnInit, OnChanges, DoCheck {
   }
 
   ngDoCheck(): void {
-    if (!!this.runes) {
+    if (!!this.runes && this.missionsList.length == 1) {
       this.setMissions()
     }
   }
@@ -78,25 +70,54 @@ export class MissionsListComponent implements OnInit, OnChanges, DoCheck {
   }
 
   setMissions() {
-    let vio = this.missionService.getEffMission(this.runes, SWExporterTypes.SetType.VIOLENT, 115)
-    console.log(`Vio 120%  ${vio} / ${this.missionService.getStepMission(vio, "easy")}`)
-    console.log("Will 108% : ", this.missionService.getEffMission(this.runes, SWExporterTypes.SetType.WILL, 108))
-    console.log("Swift 26spd : ", this.missionService.getSpeedMission(this.runes, SWExporterTypes.SetType.SWIFT, 26))
-    console.log(this.createMission(this.runes, SWExporterTypes.SetType.VIOLENT, 'spd', 26))
+    this.createMission(this.runes, SWExporterTypes.SetType.VIOLENT, 'spd', 26)
+    this.createMission(this.runes, SWExporterTypes.SetType.VIOLENT, 'eff', 110)
+    this.createMission(this.runes, SWExporterTypes.SetType.WILL, 'spd', 26)
+    this.createMission(this.runes, SWExporterTypes.SetType.WILL, 'eff', 110)
   }
 
   createMission(runes: Rune[], setType: SWExporterTypes.SetType, missionType: 'eff' | 'spd', criteria: number): Mission {
-
-    return {
-      title: 'Combatant IV (3/12)',
-      tag: ['db', 'spd'],
+    const mission: Mission = {
+      title: 'Mission Name',
+      tag: [],
       missionImg: '',
-      target: 12,
-      avancementCount: 3,
-      description: "Avoir récolter 12 runes d'une qualité platine",
-      percentage: 25,
-      xp: 100
+      target: 1,
+      missionLevel: 1,
+      avancementCount: 1,
+      description: "",
+      percentage: 0,
+      xp: 1
     }
+
+    let runeTypeName = SWExporterTypes.SetType[setType].toLowerCase()
+    mission.missionImg = runeTypeName
+    mission.title = missionType == 'spd' ? `Speed ${runeTypeName} specialiste` :  `God ${runeTypeName} efficiency`
+
+    if (missionType == 'spd') {
+      mission.tag.push('spd')
+      mission.avancementCount = this.missionService.getSpeedMission(runes, setType, criteria)
+
+      const { target, missionLevel } = this.missionService.getStepMission(mission.avancementCount, "easy")
+      mission.target = target
+      mission.missionLevel = missionLevel
+      mission.description = `Cultiver ${mission.target} runes du set ${runeTypeName} avec ${criteria} de vitesse`
+    }
+
+    else if (missionType == 'eff') {
+      mission.avancementCount = this.missionService.getEffMission(runes, setType, criteria)
+
+      const { target, missionLevel } = this.missionService.getStepMission(mission.avancementCount, "easy")
+      mission.target = target
+      mission.missionLevel = missionLevel
+      mission.description = `Cultiver ${mission.target} runes du set ${runeTypeName} avec une efficience de  ${criteria}%`
+    }
+
+    mission.percentage = mission.avancementCount / mission.target * 100
+    mission.xp = mission.missionLevel * 100
+
+    this.missionsList.push(mission)
+
+    return mission
   }
 
 
