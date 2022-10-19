@@ -9,7 +9,7 @@
 
             <div class="container-content-mission-section1">
                 <div class="container-content-mission-section1-title">
-                    <h2>{{mission.title}}</h2>
+                    <h2>{{ getTitle(mission)}}</h2>
                     <div *ngFor="let type of mission.tag ">
                         <tag [type]=type></tag>
                     </div>
