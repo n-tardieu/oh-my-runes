@@ -1,10 +1,10 @@
 export interface Mission {
-    title: String;
-    tag: String[];
-    missionImg: String;
+    title: string;
+    tag: string[];
+    missionImg: string;
     target: number;
     avancementCount: number;
-    description: String;
-    percentage: String;
-    globalRank: String | undefined;
+    description: string;
+    percentage: number;
+    xp: number;
 }

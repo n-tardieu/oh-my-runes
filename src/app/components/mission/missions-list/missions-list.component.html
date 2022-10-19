@@ -1,16 +1,6 @@
 <div class="container">
-    <app-mission-card>
-    </app-mission-card>
-
-    <app-mission-card>
-    </app-mission-card>
-
-    <app-mission-card>
-    </app-mission-card>
-
-    <app-mission-card>
-    </app-mission-card>
-
-    <app-mission-card>
-    </app-mission-card>
+    <div *ngFor="let m of missionsList">
+        <app-mission-card [mission]="m">
+        </app-mission-card>
+    </div>
 </div>

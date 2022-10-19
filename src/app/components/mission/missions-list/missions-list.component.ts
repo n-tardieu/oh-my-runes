@@ -16,7 +16,28 @@ import { RunesConvertService } from 'src/app/services/runes-convert.service';
 export class MissionsListComponent implements OnInit, OnChanges, DoCheck {
 
   @Input()
-  missionsList: Mission[] = []
+  missionsList: Mission[] = [
+    {
+      title: 'Combatant IV (3/12)',
+      tag: ['db', 'spd'],
+      missionImg: '',
+      target: 12,
+      avancementCount: 3,
+      description: "Avoir récolter 12 runes d'une qualité platine",
+      percentage: 25,
+      xp: 100
+    },
+    {
+      title: 'Combatant V (25/30)',
+      tag: ['db', 'spd'],
+      missionImg: '',
+      target: 30,
+      avancementCount: 25,
+      description: "Avoir récolter 30 runes d'une qualité platine",
+      percentage: 83.3,
+      xp: 200
+    }
+  ]
 
   @Input()
   runes: Rune[] = []

@@ -9,17 +9,18 @@
 
             <div class="container-content-mission-section1">
                 <div class="container-content-mission-section1-title">
-                        <h2>Combatant IV (3/12)</h2>
-                        <tag [type]="'db'"></tag>
-                        <tag [type]="'spd'"></tag>
+                    <h2>{{mission.title}}</h2>
+                    <div *ngFor="let type of mission.tag ">
+                        <tag [type]=type></tag>
+                    </div>
                 </div>
-                <div class="container-content-mission-section1-progression"> +300xp</div>
+                <div class="container-content-mission-section1-progression">+{{mission.xp}}xp</div>
             </div>
             <div class="container-content-mission-section2">
                 <div class="container-content-mission-section2-description">
-                    Avoir récolter 12 runes d'une qualité platine
+                    {{mission.description}}
                 </div>
-                <div class="container-content-mission-section2-percentage">25%</div>
+                <div class="container-content-mission-section2-percentage">{{mission.percentage}}%</div>
             </div>
         </div>
     </div>
