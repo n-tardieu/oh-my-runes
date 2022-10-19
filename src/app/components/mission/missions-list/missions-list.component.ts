@@ -91,7 +91,7 @@ export class MissionsListComponent implements OnInit, OnChanges, DoCheck {
 
     let runeTypeName = SWExporterTypes.SetType[setType].toLowerCase()
     mission.missionImg = runeTypeName
-    mission.title = missionType == 'spd' ? `Speed ${runeTypeName} specialiste` :  `God ${runeTypeName} efficiency`
+    mission.title = missionType == 'spd' ? `${SWExporterTypes.SetType[setType]} spd` :  `${SWExporterTypes.SetType[setType]} efficiency`
 
     if (missionType == 'spd') {
       mission.tag.push('spd')

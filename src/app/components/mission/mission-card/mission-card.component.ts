@@ -17,7 +17,7 @@ export class MissionCardComponent implements OnInit {
   }
 
   getTitle(m: Mission) {
-    return `${m.title} ${this.getNumberRomanize(m.missionLevel)} (${m.avancementCount}/${m.target})`
+    return `${m.title} - Level ${this.getNumberRomanize(m.missionLevel)} (${m.avancementCount}/${m.target})`
   }
 
   // TODO
@@ -32,5 +32,4 @@ export class MissionCardComponent implements OnInit {
     else if (number == 8) return 'VIII'
     else return '0'
   }
-
 }
