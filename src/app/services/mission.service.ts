@@ -9,6 +9,7 @@ import { RunesConvertService } from './runes-convert.service';
 })
 export class MissionService {
 
+  // TODO delete it ?
   missionSubject$ = new Subject<any[]>()
 
   private missionList: any[] = []

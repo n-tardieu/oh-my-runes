@@ -59,7 +59,7 @@ export class MissionsListComponent implements OnInit, OnChanges, DoCheck {
 
   ngDoCheck(): void {
     if (!!this.runes) {
-      this.getMission()
+      this.setMissions()
     }
   }
 
@@ -77,11 +77,26 @@ export class MissionsListComponent implements OnInit, OnChanges, DoCheck {
     })
   }
 
-  getMission() {
+  setMissions() {
     let vio = this.missionService.getEffMission(this.runes, SWExporterTypes.SetType.VIOLENT, 115)
     console.log(`Vio 120%  ${vio} / ${this.missionService.getStepMission(vio, "easy")}`)
     console.log("Will 108% : ", this.missionService.getEffMission(this.runes, SWExporterTypes.SetType.WILL, 108))
     console.log("Swift 26spd : ", this.missionService.getSpeedMission(this.runes, SWExporterTypes.SetType.SWIFT, 26))
+    console.log(this.createMission(this.runes, SWExporterTypes.SetType.VIOLENT, 'spd', 26))
+  }
+
+  createMission(runes: Rune[], setType: SWExporterTypes.SetType, missionType: 'eff' | 'spd', criteria: number): Mission {
+
+    return {
+      title: 'Combatant IV (3/12)',
+      tag: ['db', 'spd'],
+      missionImg: '',
+      target: 12,
+      avancementCount: 3,
+      description: "Avoir récolter 12 runes d'une qualité platine",
+      percentage: 25,
+      xp: 100
+    }
   }
 
 
