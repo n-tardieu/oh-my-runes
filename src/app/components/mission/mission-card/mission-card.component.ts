@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Mission } from 'src/app/core/interfaces/mission.interfaces';
 
 @Component({
   selector: 'app-mission-card',
@@ -6,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./mission-card.component.scss']
 })
 export class MissionCardComponent implements OnInit {
+
+  @Input()
+  mission!: Mission
 
   constructor() { }
 

@@ -1,5 +1,6 @@
 import { Component, DoCheck, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Mission } from 'src/app/core/interfaces/mission.interfaces';
 import { RunesListParams } from 'src/app/core/interfaces/runes-list-params.interfaces';
 import { Rune } from 'src/app/core/models/rune.model';
 import { SWExporterTypes } from 'src/app/core/types/sw-exporter.types';
@@ -13,6 +14,9 @@ import { RunesConvertService } from 'src/app/services/runes-convert.service';
   styleUrls: ['./missions-list.component.scss']
 })
 export class MissionsListComponent implements OnInit, OnChanges, DoCheck {
+
+  @Input()
+  missionsList: Mission[] = []
 
   @Input()
   runes: Rune[] = []
