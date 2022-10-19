@@ -3,6 +3,7 @@ export interface Mission {
     tag: string[];
     missionImg: string;
     target: number;
+    missionLevel: number;
     avancementCount: number;
     description: string;
     percentage: number;
