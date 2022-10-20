@@ -27,6 +27,11 @@ export class MissionService {
     return this.missionList
   }
 
+  clearMissions() {
+    this.missionList = []
+    this.emitMissionsSubject()
+  }
+
   constructor(private runesConvertService: RunesConvertService) { }
 
   getSpeedMission(runes: Rune[], type: SWExporterTypes.SetType, speedMin: number): number {
