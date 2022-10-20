@@ -1,4 +1,4 @@
-import { Component, DoCheck, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, DoCheck, Input, KeyValueDiffer, KeyValueDiffers, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Mission } from 'src/app/core/interfaces/mission.interfaces';
 import { RunesListParams } from 'src/app/core/interfaces/runes-list-params.interfaces';
@@ -7,6 +7,7 @@ import { SWExporterTypes } from 'src/app/core/types/sw-exporter.types';
 import { MissionService } from 'src/app/services/mission.service';
 import { RuneService } from 'src/app/services/rune.service';
 import { RunesConvertService } from 'src/app/services/runes-convert.service';
+import { WizardService } from 'src/app/services/wizard.service';
 
 @Component({
   selector: 'app-missions-list',
@@ -26,7 +27,15 @@ export class MissionsListComponent implements OnInit, OnChanges, DoCheck {
   runesListParams!: RunesListParams;
   runeListParamsSubscription: Subscription = new Subscription;
 
-  constructor(private runeService: RuneService, private runesConvertService: RunesConvertService, private missionService: MissionService) { }
+  private paramsDiffer!: KeyValueDiffer<string, any>;
+
+  constructor(
+    private differs: KeyValueDiffers,
+    private runeService: RuneService,
+    private runesConvertService: RunesConvertService,
+    private missionService: MissionService,
+    private wizardService: WizardService
+  ) { }
 
   ngOnInit(): void {
     this.getRunes()
@@ -39,6 +48,13 @@ export class MissionsListComponent implements OnInit, OnChanges, DoCheck {
   }
 
   ngDoCheck(): void {
+    const changes = this.paramsDiffer.diff(this.runesListParams)
+    if (changes) {
+      this.missionService.clearMissions()
+      const runesUpdated = this.optimizeRunes(this.wizardService.getWizardData())
+      this.runeService.setRunes(runesUpdated)
+    }
+
     if (this.runes.length !== 0 && this.missions.length === 0) {
       this.setMissions(this.runes)
     }
@@ -53,6 +69,8 @@ export class MissionsListComponent implements OnInit, OnChanges, DoCheck {
 
   getRunesListParams() {
     this.runesListParams = this.runesConvertService.getRunesListParams()
+    this.paramsDiffer = this.differs.find(this.runesListParams).create();
+
     this.runeListParamsSubscription = this.runesConvertService.runesListParamsSubject$.subscribe((runesListParams: RunesListParams) => {
       this.runesListParams = runesListParams
     })
@@ -67,6 +85,10 @@ export class MissionsListComponent implements OnInit, OnChanges, DoCheck {
 
   setMissions(runes: Rune[]) {
     this.missionService.seedMissions(runes)
+  }
+
+  optimizeRunes(wizard: any): Rune[] {
+    return this.runesConvertService.useRuneForge(wizard)
   }
 
 
