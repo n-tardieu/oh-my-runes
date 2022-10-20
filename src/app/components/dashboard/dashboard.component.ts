@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { RunesConvertService } from 'src/app/services/runes-convert.service';
 import { WizardService } from 'src/app/services/wizard.service';
 
@@ -7,7 +7,7 @@ import { WizardService } from 'src/app/services/wizard.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnChanges {
 
   isValid = true;
 
@@ -24,9 +24,13 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log("changes ", changes);
+  }
+
   downloadWizardJSON(): void {
-   // let json = this.runeConvertService.cleanFileWithRaid()
-   // this.wizardService.generateWizardJSON(json)
+    // let json = this.runeConvertService.cleanFileWithRaid()
+    // this.wizardService.generateWizardJSON(json)
   }
 
 }
