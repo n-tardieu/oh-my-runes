@@ -74,6 +74,9 @@ export class MissionsListComponent implements OnInit, OnChanges, DoCheck {
     this.createMission(this.runes, SWExporterTypes.SetType.VIOLENT, 'eff', 110)
     this.createMission(this.runes, SWExporterTypes.SetType.WILL, 'spd', 26)
     this.createMission(this.runes, SWExporterTypes.SetType.WILL, 'eff', 110)
+    this.createMission(this.runes, SWExporterTypes.SetType.SWIFT, 'spd', 26)
+    this.createMission(this.runes, SWExporterTypes.SetType.SWIFT, 'spd', 28)
+    this.createMission(this.runes, SWExporterTypes.SetType.SWIFT, 'eff', 110)
   }
 
   createMission(runes: Rune[], setType: SWExporterTypes.SetType, missionType: 'eff' | 'spd', criteria: number): Mission {
