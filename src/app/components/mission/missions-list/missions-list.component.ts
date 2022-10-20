@@ -16,19 +16,7 @@ import { RunesConvertService } from 'src/app/services/runes-convert.service';
 export class MissionsListComponent implements OnInit, OnChanges, DoCheck {
 
   @Input()
-  missionsList: Mission[] = [
-    {
-      title: 'Mission TEST',
-      tag: ['spd', 'db'],
-      missionImg: 'energy',
-      target: 1,
-      missionLevel: 1,
-      avancementCount: 0,
-      description: "undefined",
-      percentage: 0,
-      xp: 1
-    }
-  ]
+  missionsList: Mission[] = []
 
   @Input()
   runes: Rune[] = []
@@ -50,7 +38,7 @@ export class MissionsListComponent implements OnInit, OnChanges, DoCheck {
   }
 
   ngDoCheck(): void {
-    if (!!this.runes && this.missionsList.length == 1) {
+    if (!!this.missionsList) {
       this.setMissions()
     }
   }
@@ -94,7 +82,7 @@ export class MissionsListComponent implements OnInit, OnChanges, DoCheck {
 
     let runeTypeName = SWExporterTypes.SetType[setType].toLowerCase()
     mission.missionImg = runeTypeName
-    mission.title = missionType == 'spd' ? `${SWExporterTypes.SetType[setType]} spd` :  `${SWExporterTypes.SetType[setType]} efficiency`
+    mission.title = missionType == 'spd' ? `${SWExporterTypes.SetType[setType]} spd` : `${SWExporterTypes.SetType[setType]} efficiency`
 
     if (missionType == 'spd') {
       mission.tag.push('spd')
