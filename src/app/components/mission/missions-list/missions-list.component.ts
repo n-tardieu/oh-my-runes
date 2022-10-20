@@ -16,7 +16,8 @@ import { RunesConvertService } from 'src/app/services/runes-convert.service';
 export class MissionsListComponent implements OnInit, OnChanges, DoCheck {
 
   @Input()
-  missionsList: Mission[] = []
+  missions: Mission[] = []
+  missionsSubscription: Subscription = new Subscription;
 
   @Input()
   runes: Rune[] = []
@@ -30,7 +31,7 @@ export class MissionsListComponent implements OnInit, OnChanges, DoCheck {
   ngOnInit(): void {
     this.getRunes()
     this.getRunesListParams()
-
+    this.getMissions()
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -38,8 +39,8 @@ export class MissionsListComponent implements OnInit, OnChanges, DoCheck {
   }
 
   ngDoCheck(): void {
-    if (!!this.missionsList) {
-      this.setMissions()
+    if (this.runes.length !== 0 && this.missions.length === 0) {
+      this.setMissions(this.runes)
     }
   }
 
@@ -57,58 +58,15 @@ export class MissionsListComponent implements OnInit, OnChanges, DoCheck {
     })
   }
 
-  setMissions() {
-    this.createMission(this.runes, SWExporterTypes.SetType.VIOLENT, 'spd', 26)
-    this.createMission(this.runes, SWExporterTypes.SetType.VIOLENT, 'eff', 110)
-    this.createMission(this.runes, SWExporterTypes.SetType.WILL, 'spd', 26)
-    this.createMission(this.runes, SWExporterTypes.SetType.WILL, 'eff', 110)
-    this.createMission(this.runes, SWExporterTypes.SetType.SWIFT, 'spd', 26)
-    this.createMission(this.runes, SWExporterTypes.SetType.SWIFT, 'spd', 28)
-    this.createMission(this.runes, SWExporterTypes.SetType.SWIFT, 'eff', 110)
+  getMissions() {
+    this.missions = this.missionService.getMissions()
+    this.missionsSubscription = this.missionService.missionSubject$.subscribe((missions: Mission[]) => {
+      this.missions = missions
+    })
   }
 
-  createMission(runes: Rune[], setType: SWExporterTypes.SetType, missionType: 'eff' | 'spd', criteria: number): Mission {
-    const mission: Mission = {
-      title: 'Mission Name',
-      tag: [],
-      missionImg: '',
-      target: 1,
-      missionLevel: 1,
-      avancementCount: 1,
-      description: "",
-      percentage: 0,
-      xp: 1
-    }
-
-    let runeTypeName = SWExporterTypes.SetType[setType].toLowerCase()
-    mission.missionImg = runeTypeName
-    mission.title = missionType == 'spd' ? `${SWExporterTypes.SetType[setType]} spd` : `${SWExporterTypes.SetType[setType]} efficiency`
-
-    if (missionType == 'spd') {
-      mission.tag.push('spd')
-      mission.avancementCount = this.missionService.getSpeedMission(runes, setType, criteria)
-
-      const { target, missionLevel } = this.missionService.getStepMission(mission.avancementCount, "easy")
-      mission.target = target
-      mission.missionLevel = missionLevel
-      mission.description = `Cultiver ${mission.target} runes du set ${runeTypeName} avec ${criteria} de vitesse`
-    }
-
-    else if (missionType == 'eff') {
-      mission.avancementCount = this.missionService.getEffMission(runes, setType, criteria)
-
-      const { target, missionLevel } = this.missionService.getStepMission(mission.avancementCount, "easy")
-      mission.target = target
-      mission.missionLevel = missionLevel
-      mission.description = `Cultiver ${mission.target} runes du set ${runeTypeName} avec une efficience de  ${criteria}%`
-    }
-
-    mission.percentage = mission.avancementCount / mission.target * 100
-    mission.xp = mission.missionLevel * 100
-
-    this.missionsList.push(mission)
-
-    return mission
+  setMissions(runes: Rune[]) {
+    this.missionService.seedMissions(runes)
   }
 
 
