@@ -35,18 +35,31 @@ export class MissionService {
   constructor(private runesConvertService: RunesConvertService) { }
 
   getSpeedMission(runes: Rune[], type: SWExporterTypes.SetType, speedMin: number): number {
-    const result = runes.filter((rune: Rune) => {
-      return rune.setType == type && ((this.runesConvertService.runeSpeed(rune) >= speedMin))
-    }).length
+    const result = this.speedFilter(runes, type, speedMin).length
     return result
   }
 
   getEffMission(runes: Rune[], type: SWExporterTypes.SetType, efficiency: number): number {
-    const result = runes.filter((rune: Rune) => {
+    const result = this.efficiencyFilter(runes, type, efficiency).length
+    return result
+  }
+
+  getSpeedAndEfficiencyMissions(runes: Rune[], type: SWExporterTypes.SetType, efficiency: number, speedMin: number) {
+    const firstFilteredRunes: Rune[] = this.efficiencyFilter(runes, type, efficiency)
+    const secondFilteredRunes = this.speedFilter(firstFilteredRunes, type, speedMin)
+    return secondFilteredRunes.length
+  }
+
+  speedFilter(runes: Rune[], type: SWExporterTypes.SetType, speedMin: number): Rune[] {
+    return runes.filter((rune: Rune) => {
+      return rune.setType == type && ((this.runesConvertService.runeSpeed(rune) >= speedMin))
+    })
+  }
+  efficiencyFilter(runes: Rune[], type: SWExporterTypes.SetType, efficiency: number): Rune[] {
+    return runes.filter((rune: Rune) => {
       if (rune.setType == type && (this.runesConvertService.efficiency(rune) >= efficiency)) return true
       else return false
-    }).length
-    return result
+    })
   }
 
   getStepMission(number: number, difficulty: 'easy' | 'hard'): { target: number, missionLevel: number } {
@@ -81,14 +94,18 @@ export class MissionService {
   seedMissions(runes: Rune[]) {
     this.setMission(this.createMission(runes, SWExporterTypes.SetType.VIOLENT, 'spd', 26))
     this.setMission(this.createMission(runes, SWExporterTypes.SetType.VIOLENT, 'eff', 110))
+    this.setMission(this.createMission(runes, SWExporterTypes.SetType.VIOLENT, 'eff-spd', 100))
     this.setMission(this.createMission(runes, SWExporterTypes.SetType.WILL, 'spd', 26))
     this.setMission(this.createMission(runes, SWExporterTypes.SetType.WILL, 'eff', 110))
+    this.setMission(this.createMission(runes, SWExporterTypes.SetType.WILL, 'eff-spd', 100))
+
     this.setMission(this.createMission(runes, SWExporterTypes.SetType.SWIFT, 'spd', 26))
-    this.setMission(this.createMission(runes, SWExporterTypes.SetType.SWIFT, 'spd', 28))
     this.setMission(this.createMission(runes, SWExporterTypes.SetType.SWIFT, 'eff', 110))
+    this.setMission(this.createMission(runes, SWExporterTypes.SetType.SWIFT, 'eff-spd', 100))
+
   }
 
-  createMission(runes: Rune[], setType: SWExporterTypes.SetType, missionType: 'eff' | 'spd', criteria: number): Mission {
+  createMission(runes: Rune[], setType: SWExporterTypes.SetType, missionType: 'eff' | 'spd' | 'eff-spd', criteria: number, secondCriteria: number = 21): Mission {
     const mission: Mission = {
       title: 'Mission Name',
       tag: [],
@@ -122,6 +139,15 @@ export class MissionService {
       mission.target = target
       mission.missionLevel = missionLevel
       mission.description = `Cultiver ${mission.target} runes du set ${runeTypeName} avec une efficience de  ${criteria}%`
+    }
+
+    else if (missionType == 'eff-spd') {
+      mission.tag.push('perfect')
+      mission.avancementCount = this.getSpeedAndEfficiencyMissions(runes, setType, criteria, secondCriteria)
+      const { target, missionLevel } = this.getStepMission(mission.avancementCount, 'hard')
+      mission.target = target
+      mission.missionLevel = missionLevel
+      mission.description = `Cultiver ${mission.target} runes du set ${runeTypeName} avec ${criteria}% d'efficience pour ${secondCriteria} de vitesse`
     }
 
     mission.percentage = mission.avancementCount / mission.target * 100

@@ -25,6 +25,8 @@ export class TagComponent implements OnInit {
       return 'NB'
     } else if (this.type == 'spd') {
       return 'speed'
+    } else if (this.type) {
+      return this.type
     }
     return 'undefined'
   }
