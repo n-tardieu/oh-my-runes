@@ -95,6 +95,7 @@ export class MissionService {
     this.setMission(this.createMission(runes, SWExporterTypes.SetType.VIOLENT, 'spd', 26))
     this.setMission(this.createMission(runes, SWExporterTypes.SetType.VIOLENT, 'eff', 110))
     this.setMission(this.createMission(runes, SWExporterTypes.SetType.VIOLENT, 'eff-spd', 100))
+
     this.setMission(this.createMission(runes, SWExporterTypes.SetType.WILL, 'spd', 26))
     this.setMission(this.createMission(runes, SWExporterTypes.SetType.WILL, 'eff', 110))
     this.setMission(this.createMission(runes, SWExporterTypes.SetType.WILL, 'eff-spd', 100))
@@ -103,6 +104,9 @@ export class MissionService {
     this.setMission(this.createMission(runes, SWExporterTypes.SetType.SWIFT, 'eff', 110))
     this.setMission(this.createMission(runes, SWExporterTypes.SetType.SWIFT, 'eff-spd', 100))
 
+    this.setMission(this.createMission(runes, SWExporterTypes.SetType.DESPAIR, 'spd', 26))
+    this.setMission(this.createMission(runes, SWExporterTypes.SetType.DESPAIR, 'eff', 110))
+    this.setMission(this.createMission(runes, SWExporterTypes.SetType.DESPAIR, 'eff-spd', 100))
   }
 
   createMission(runes: Rune[], setType: SWExporterTypes.SetType, missionType: 'eff' | 'spd' | 'eff-spd', criteria: number, secondCriteria: number = 21): Mission {
