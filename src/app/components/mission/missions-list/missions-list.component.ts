@@ -24,6 +24,8 @@ export class MissionsListComponent implements OnInit, OnChanges, DoCheck {
   runes: Rune[] = []
   runeSubscription: Subscription = new Subscription;
 
+  @Input()
+  filter: 'all' | 'gb' | 'db' | 'nb' = 'all'
 
   @Input()
   public sortObject: { params: keyof Mission, order: 'asc' | 'desc' } = {
@@ -88,7 +90,9 @@ export class MissionsListComponent implements OnInit, OnChanges, DoCheck {
   getMissions() {
     this.missions = this.missionService.getMissions()
     this.missionsSubscription = this.missionService.missionSubject$.subscribe((missions: Mission[]) => {
-      this.missions = this.sortMissions(missions, this.sortObject.params, this.sortObject.order)
+      let missionsSort = this.sortMissions(missions, this.sortObject.params, this.sortObject.order);
+      let missionFilter = this.filterMissions(missionsSort, this.filter)
+      this.missions = missionFilter
     })
   }
 
@@ -117,6 +121,16 @@ export class MissionsListComponent implements OnInit, OnChanges, DoCheck {
       );
     })
     return missionSort
+  }
+
+  filterMissions(missions: Mission[], filter: string): Mission[] {
+    return missions.filter(mission => {
+      if (filter !== 'all') {
+        if (mission.tag.includes(filter)) return true
+        else return false
+      }
+      return true
+    })
   }
 
 

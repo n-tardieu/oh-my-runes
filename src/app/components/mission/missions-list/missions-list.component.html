@@ -1,12 +1,20 @@
 <div class="container">
     <div class="container-section">
-        <h2>Quests</h2>
+        <div>
+            <h2>Quests</h2>
+            <mat-radio-group [(ngModel)]="filter" (ngModelChange)="ngOnChanges($event)"
+                aria-label="Select an mat-option">
+                <mat-radio-button class="filter-option" value="all">all </mat-radio-button>
+                <mat-radio-button class="filter-option" value="gb">gb </mat-radio-button>
+                <mat-radio-button class="filter-option" value="db">db </mat-radio-button>
+                <mat-radio-button class="filter-option" value="nb">nb </mat-radio-button>
+            </mat-radio-group>
+        </div>
         <div class="container-section-sort">
             <select [(ngModel)]="sortObject.params" (ngModelChange)="ngOnChanges($event)">
                 <option value="title">Titre</option>
                 <option value="percentage">Completed</option>
                 <option value="missionLevel">Quest level</option>
-
             </select>
             <select [(ngModel)]="sortObject.order" (ngModelChange)="ngOnChanges($event)">
                 <option value="desc">Desc</option>
