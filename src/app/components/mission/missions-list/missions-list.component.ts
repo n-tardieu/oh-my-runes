@@ -24,10 +24,19 @@ export class MissionsListComponent implements OnInit, OnChanges, DoCheck {
   runes: Rune[] = []
   runeSubscription: Subscription = new Subscription;
 
+
+  @Input()
+  public sortObject: { params: keyof Mission, order: 'asc' | 'desc' } = {
+    params: 'percentage',
+    order: 'asc'
+  }
+
   runesListParams!: RunesListParams;
   runeListParamsSubscription: Subscription = new Subscription;
 
   private paramsDiffer!: KeyValueDiffer<string, any>;
+  private sortObjectDiffer!: KeyValueDiffer<string, any>;
+
 
   constructor(
     private differs: KeyValueDiffers,
@@ -79,7 +88,7 @@ export class MissionsListComponent implements OnInit, OnChanges, DoCheck {
   getMissions() {
     this.missions = this.missionService.getMissions()
     this.missionsSubscription = this.missionService.missionSubject$.subscribe((missions: Mission[]) => {
-      this.missions = this.sortMissions(missions, 'percentage', 'desc')
+      this.missions = this.sortMissions(missions, this.sortObject.params, this.sortObject.order)
     })
   }
 
@@ -91,12 +100,12 @@ export class MissionsListComponent implements OnInit, OnChanges, DoCheck {
     return this.runesConvertService.useRuneForge(wizard)
   }
 
-  sortMissions(missions: Mission[], key: keyof Mission, order: 'asc' | 'desc'): Mission[] {
+  sortMissions(missions: Mission[], params: keyof Mission, order: 'asc' | 'desc'): Mission[] {
     let missionSort = missions.sort((mission_a: Mission, mission_b: Mission) => {
       let comparison = 0;
-      if ((mission_a[key] as number) > (mission_b[key] as number)) {
+      if ((mission_a[params] as number) > (mission_b[params] as number)) {
         comparison = 1;
-      } else if ((mission_a[key] as number) < (mission_b[key] as number)) {
+      } else if ((mission_a[params] as number) < (mission_b[params] as number)) {
         comparison = -1;
       }
       return (
