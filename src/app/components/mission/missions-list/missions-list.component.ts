@@ -27,8 +27,8 @@ export class MissionsListComponent implements OnInit, OnChanges, DoCheck {
 
   @Input()
   public sortObject: { params: keyof Mission, order: 'asc' | 'desc' } = {
-    params: 'percentage',
-    order: 'desc'
+    params: 'title',
+    order: 'asc'
   }
 
   runesListParams!: RunesListParams;
@@ -103,10 +103,14 @@ export class MissionsListComponent implements OnInit, OnChanges, DoCheck {
   sortMissions(missions: Mission[], params: keyof Mission, order: 'asc' | 'desc'): Mission[] {
     let missionSort = missions.sort((mission_a: Mission, mission_b: Mission) => {
       let comparison = 0;
-      if ((mission_a[params] as number) > (mission_b[params] as number)) {
-        comparison = 1;
-      } else if ((mission_a[params] as number) < (mission_b[params] as number)) {
-        comparison = -1;
+      if (typeof mission_a[params] === 'number') {
+        if ((mission_a[params] as number) > (mission_b[params] as number)) {
+          comparison = 1;
+        } else if ((mission_a[params] as number) < (mission_b[params] as number)) {
+          comparison = -1;
+        }
+      } else {
+        comparison = (mission_a[params] as string).localeCompare(mission_b[params] as string)
       }
       return (
         (order === 'desc') ? (comparison * -1) : comparison
