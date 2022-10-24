@@ -25,7 +25,7 @@ export class MissionsListComponent implements OnInit, OnChanges, DoCheck {
   runeSubscription: Subscription = new Subscription;
 
   @Input()
-  filter: 'all' | 'gb' | 'db' | 'nb' = 'all'
+  filter: string = ''
 
   @Input()
   public sortObject: { params: keyof Mission, order: 'asc' | 'desc' } = {
@@ -124,14 +124,14 @@ export class MissionsListComponent implements OnInit, OnChanges, DoCheck {
   }
 
   filterMissions(missions: Mission[], filter: string): Mission[] {
+    const filterLow = filter.toString().toLowerCase()
     return missions.filter(mission => {
-      if (filter !== 'all') {
-        if (mission.tag.includes(filter)) return true
-        else return false
-      }
-      return true
+      if (
+        mission?.tag?.toString().toLowerCase().includes(filterLow) ||
+        mission?.title?.toString().toLowerCase().includes(filterLow)
+      ) return true
+      else return false
     })
   }
-
 
 }
