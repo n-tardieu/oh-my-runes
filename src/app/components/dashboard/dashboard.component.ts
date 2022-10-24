@@ -17,7 +17,7 @@ export class DashboardComponent implements OnInit, OnChanges, DoCheck {
     isEquipedRunes: true,
     isOnlyStorageRunes: true,
     isAbort: true,
-    gemGrade: 'hero'
+    gemGrade: 'default'
   }
 
   private paramsDiffer!: KeyValueDiffer<string, any>;
