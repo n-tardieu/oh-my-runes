@@ -3,12 +3,12 @@
         <h2>Quests</h2>
         <div class="container-section-sort">
             <select [(ngModel)]="sortObject.params">
-                <option value="percentage">Percentage completed</option>
-                <option value="missionLevel">Difficulty</option>
+                <option value="percentage">Completed</option>
+                <option value="missionLevel">Quest level</option>
             </select>
             <select [(ngModel)]="sortObject.order">
-                <option value="asc">Asc</option>
                 <option value="desc">Desc</option>
+                <option value="asc">Asc</option>
             </select>
         </div>
     </div>

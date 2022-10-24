@@ -28,7 +28,7 @@ export class MissionsListComponent implements OnInit, OnChanges, DoCheck {
   @Input()
   public sortObject: { params: keyof Mission, order: 'asc' | 'desc' } = {
     params: 'percentage',
-    order: 'asc'
+    order: 'desc'
   }
 
   runesListParams!: RunesListParams;
