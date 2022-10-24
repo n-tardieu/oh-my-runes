@@ -53,7 +53,7 @@ export class MissionsListComponent implements OnInit, OnChanges, DoCheck {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log("change ", changes);
+    this.missionService.clearMissions();
   }
 
   ngDoCheck(): void {

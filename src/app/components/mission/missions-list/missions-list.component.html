@@ -2,11 +2,13 @@
     <div class="container-section">
         <h2>Quests</h2>
         <div class="container-section-sort">
-            <select [(ngModel)]="sortObject.params">
+            <select [(ngModel)]="sortObject.params" (ngModelChange)="ngOnChanges($event)">
+                <option value="title">Titre</option>
                 <option value="percentage">Completed</option>
                 <option value="missionLevel">Quest level</option>
+
             </select>
-            <select [(ngModel)]="sortObject.order">
+            <select [(ngModel)]="sortObject.order" (ngModelChange)="ngOnChanges($event)">
                 <option value="desc">Desc</option>
                 <option value="asc">Asc</option>
             </select>
