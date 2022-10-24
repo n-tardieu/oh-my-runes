@@ -79,7 +79,7 @@ export class MissionsListComponent implements OnInit, OnChanges, DoCheck {
   getMissions() {
     this.missions = this.missionService.getMissions()
     this.missionsSubscription = this.missionService.missionSubject$.subscribe((missions: Mission[]) => {
-      this.missions = missions
+      this.missions = this.sortMissions(missions, 'percentage', 'desc')
     })
   }
 
@@ -89,6 +89,21 @@ export class MissionsListComponent implements OnInit, OnChanges, DoCheck {
 
   optimizeRunes(wizard: any): Rune[] {
     return this.runesConvertService.useRuneForge(wizard)
+  }
+
+  sortMissions(missions: Mission[], key: keyof Mission, order: 'asc' | 'desc'): Mission[] {
+    let missionSort = missions.sort((mission_a: Mission, mission_b: Mission) => {
+      let comparison = 0;
+      if ((mission_a[key] as number) > (mission_b[key] as number)) {
+        comparison = 1;
+      } else if ((mission_a[key] as number) < (mission_b[key] as number)) {
+        comparison = -1;
+      }
+      return (
+        (order === 'desc') ? (comparison * -1) : comparison
+      );
+    })
+    return missionSort
   }
 
 
