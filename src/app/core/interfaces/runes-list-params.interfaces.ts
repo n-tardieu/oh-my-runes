@@ -2,5 +2,5 @@ export interface RunesListParams {
   isOnlyStorageRunes: boolean,
   isAbort: boolean,
   isEquipedRunes: boolean,
-  gemGrade: 'leg' | 'hero'
+  gemGrade: 'leg' | 'hero' | 'not'
 }

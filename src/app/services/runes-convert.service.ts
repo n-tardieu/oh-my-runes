@@ -191,7 +191,7 @@ export class RunesConvertService {
           }
         }
         // not leg
-        else {
+        else if (this.runesListParams.gemGrade == 'hero') {
           if (rune.secondaryEffects[slot].gems == 1) {
             if (rune.isAntique) {
               rune.secondaryEffects[slot].value = (rune.secondaryEffects[slot].value > (Rune.enchanteGemAntiqueHero.get(rune.secondaryEffects[slot].type) as number) && this.runesListParams.isAbort) ? rune.secondaryEffects[slot].value : Rune.enchanteGemAntiqueHero.get(rune.secondaryEffects[slot].type) as number
