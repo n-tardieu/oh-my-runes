@@ -8,4 +8,5 @@ export interface Mission {
     description: string;
     percentage: number;
     xp: number;
+    secretTag: string;
 }
