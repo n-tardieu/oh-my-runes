@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit, OnChanges, DoCheck {
 
   private paramsDiffer!: KeyValueDiffer<string, any>;
 
-  constructor(private differs: KeyValueDiffers, private runesConvertService: RunesConvertService) { }
+  constructor(private differs: KeyValueDiffers, private runesConvertService: RunesConvertService, private wizardService: WizardService) { }
 
   ngOnInit() {
     this.paramsDiffer = this.differs.find(this.params).create();
@@ -40,8 +40,8 @@ export class DashboardComponent implements OnInit, OnChanges, DoCheck {
   }
 
   downloadWizardJSON(): void {
-    // let json = this.runeConvertService.cleanFileWithRaid()
-    // this.wizardService.generateWizardJSON(json)
+     let json = this.runesConvertService.cleanFileWithRaid(this.wizardService.getWizardData())
+     this.wizardService.generateWizardJSON(json)
   }
 
 }
