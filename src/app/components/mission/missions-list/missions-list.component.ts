@@ -128,7 +128,9 @@ export class MissionsListComponent implements OnInit, OnChanges, DoCheck {
     return missions.filter(mission => {
       if (
         mission?.tag?.toString().toLowerCase().includes(filterLow) ||
-        mission?.title?.toString().toLowerCase().includes(filterLow)
+        mission?.title?.toString().toLowerCase().includes(filterLow) ||
+        mission?.secretTag?.toString().toLowerCase().includes(filterLow)
+
       ) return true
       else return false
     })
