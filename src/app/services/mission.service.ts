@@ -119,15 +119,16 @@ export class MissionService {
       avancementCount: 1,
       description: "",
       percentage: 0,
-      xp: 1
+      xp: 1,
+      secretTag: ''
     }
 
     let runeTypeName = SWExporterTypes.SetType[setType].toLowerCase()
     mission.missionImg = runeTypeName
-    mission.title = missionType == 'spd' ? `${SWExporterTypes.SetType[setType]} spd` : `${SWExporterTypes.SetType[setType]} efficiency`
+    mission.title = missionType == 'spd' ? `${SWExporterTypes.SetType[setType]} speed quest` : `${SWExporterTypes.SetType[setType]} efficiency quest`
 
     if (missionType == 'spd') {
-      mission.tag.push('spd')
+      mission.tag.push('speed')
       mission.avancementCount = this.getSpeedMission(runes, setType, criteria)
 
       const { target, missionLevel } = this.getStepMission(mission.avancementCount, "easy")
@@ -148,15 +149,48 @@ export class MissionService {
     else if (missionType == 'eff-spd') {
       mission.tag.push('perfect')
       mission.avancementCount = this.getSpeedAndEfficiencyMissions(runes, setType, criteria, secondCriteria)
+
       const { target, missionLevel } = this.getStepMission(mission.avancementCount, 'hard')
       mission.target = target
       mission.missionLevel = missionLevel
       mission.description = `Cultiver ${mission.target} runes du set ${runeTypeName} avec ${criteria}% d'efficience pour ${secondCriteria} de vitesse`
     }
 
+    // this ligne add caiross tag
+    // mission.tag.push(this.getCairossType(setType))
     mission.percentage = mission.avancementCount / mission.target * 100
     mission.xp = mission.missionLevel * 100
+    mission.secretTag = `${this.getNumberRomanize(mission.missionLevel)} ${this.getCairossType(setType)}`
+
     return mission
   }
+
+  getNumberRomanize(number: number) {
+    if (number == 1) return 'I'
+    else if (number == 2) return 'II'
+    else if (number == 3) return 'III'
+    else if (number == 4) return 'IV'
+    else if (number == 5) return 'V'
+    else if (number == 6) return 'VI'
+    else if (number == 7) return 'VII'
+    else if (number == 8) return 'VIII'
+    else return '0'
+  }
+
+  getCairossType(setType: SWExporterTypes.SetType): string {
+    const set = SWExporterTypes.SetType[setType]
+    if (set == 'ENERGY' || set === 'BLADE' || set === 'SWIFT' || set === 'FATAL' || set === 'DESPAIR') return 'gb'
+    if (set === 'VIOLENT' || set === 'FOCUS' || set === 'REVENGE' || set === 'GUARD' || set === 'SHIELD' || set === 'ENDURE') return 'db'
+    if (set == 'RAGE' || set === 'VAMPIRE' || set === 'NEMESIS' || set === 'WILL' || set === 'DESTROY') return 'nb'
+    return 'undefined'
+  }
+
+  /*
+  isRuneFocusRta(setType: SWExporterTypes.SetType): boolean {
+    const set = SWExporterTypes.SetType[setType]
+    if (set == 'VIOLENT' || set === 'SWIFT' || set === 'DESPAIR' || set === 'WILL') return true
+    return false
+  }
+  */
 
 }
