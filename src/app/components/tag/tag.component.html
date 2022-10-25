@@ -1,5 +1,5 @@
-<div [ngClass]="type === 'spd' ? 'container' : 'container--caiross'">
-    <div [ngClass]="type === 'spd' ? 'container_tag' : 'container_tag--caiross'">
+<div class="container" [style.background-color]="getBackgroundColor()">
+    <div class="container_tag" [style.color]="getColor()">
         <h4>{{ getTitle()}}</h4>
     </div>
 </div>

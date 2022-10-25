@@ -1,7 +1,7 @@
 .container {
     display: flex;
     justify-content: center;
-    background-color: aquamarine;
+    //  background-color: aquamarine;
     height: 30px;
     width: 68px;
     border-radius: 4px;
@@ -11,26 +11,8 @@
 .container_tag {
     display: flex;
     align-items: center;
-    color: green;
-    h4 {
-        margin: 0px;
-    }
-}
 
-.container--caiross {
-    display: flex;
-    justify-content: center;
-    background-color: plum;
-    height: 30px;
-    width: 68px;
-    border-radius: 4px;
-    margin-left: 16px;
-}
-
-.container_tag--caiross {
-    display: flex;
-    align-items: center;
-    color: purple;
+    //  color: green;
     h4 {
         margin: 0px;
     }

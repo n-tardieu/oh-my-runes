@@ -13,6 +13,7 @@ export class TagComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.getBackgroundColor()
   }
 
 
@@ -23,12 +24,34 @@ export class TagComponent implements OnInit {
       return 'DB'
     } else if (this.type == 'nb') {
       return 'NB'
-    } else if (this.type == 'spd') {
+    } else if (this.type == 'speed') {
       return 'speed'
     } else if (this.type) {
       return this.type
     }
     return 'undefined'
+  }
+
+  getBackgroundColor() {
+    if (this.type == 'gb' || this.type == 'db' || this.type == 'nb') {
+      return '#7FFFD4'
+    } else if (this.type == 'speed') {
+      return '#FFFF19'
+    } else if (this.type) {
+      return '#6E00E0'
+    }
+    return '#FFFFFF'
+  }
+
+  getColor() {
+    if (this.type == 'gb' || this.type == 'db' || this.type == 'nb') {
+      return 'black'
+    } else if (this.type == 'speed') {
+      return 'black'
+    } else if (this.type) {
+      return 'white'
+    }
+    return '#EEEEEE'
   }
 
 }
