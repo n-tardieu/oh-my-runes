@@ -227,13 +227,14 @@ export class RunesConvertService {
 
     rune.secondaryEffects.forEach((effect: any) => {
       const value = effect.value + effect.grindstones
-      ratio += value / ((Rune.subStatEfficiency as any).get(effect.type) * (Rune.subStatCustomEfficiency as any).get(effect.type))
+      ratio += (value / (Rune.subStatEfficiency as any).get(effect.type)) * (Rune.subStatCustomEfficiency as any).get(effect.type)
     })
 
     // TODO Fix innateEffect
     if (rune.innateEffect) {
       if (Rune.subStatEfficiency.has(rune.innateEffect.type)) {
-        ratio += rune.innateEffect.value / (Rune.subStatEfficiency as any).get(rune.innateEffect.type)
+        const value = rune.innateEffect.value + rune.innateEffect.grindstones
+        ratio += (value / (Rune.subStatEfficiency as any).get(rune.innateEffect.type)) * (Rune.subStatCustomEfficiency as any).get(rune.innateEffect.type)
       }
     }
 
