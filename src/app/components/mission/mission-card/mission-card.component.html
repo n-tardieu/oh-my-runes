@@ -20,7 +20,7 @@
                 <div class="container-content-mission-section2-description">
                     {{mission.description}}
                 </div>
-                <div class="container-content-mission-section2-percentage">{{mission.percentage.toFixed(0)}}%</div>
+                <div class="container-content-mission-section2-percentage">{{mission.completed ? 'Completed' : mission.percentage.toFixed(0) + '%'}}</div>
             </div>
         </div>
     </div>

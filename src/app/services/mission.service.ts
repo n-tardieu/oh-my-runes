@@ -120,7 +120,8 @@ export class MissionService {
       description: "",
       percentage: 0,
       xp: 1,
-      secretTag: ''
+      secretTag: '',
+      completed: false
     }
 
     let runeTypeName = SWExporterTypes.SetType[setType].toLowerCase()
@@ -156,11 +157,13 @@ export class MissionService {
       mission.description = `Cultiver ${mission.target} runes du set ${runeTypeName} avec ${criteria}% d'efficience pour ${secondCriteria} de vitesse`
     }
 
+
     // this ligne add caiross tag
     // mission.tag.push(this.getCairossType(setType))
     mission.percentage = mission.avancementCount / mission.target * 100
+    if (mission.percentage >= 100) mission.completed = true
     mission.xp = mission.missionLevel * 100
-    mission.secretTag = `${this.getNumberRomanize(mission.missionLevel)} ${this.getCairossType(setType)}`
+    mission.secretTag = `${this.getNumberRomanize(mission.missionLevel)} ${this.getCairossType(setType)} ${mission.completed ? 'completed' : 'ongoing'}`
 
     return mission
   }
