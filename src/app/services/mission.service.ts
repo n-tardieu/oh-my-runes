@@ -91,8 +91,31 @@ export class MissionService {
     }
   }
 
+  getStepMissionTest(number: number, tab: any, index: number): { target: number, missionLevel: number, isLastMission: boolean } {
+    let missionLevel = index + 1
+    let target = tab[index]
+    let isLastMission = tab.length == index + 1
+
+    return {
+      target: target,
+      missionLevel: missionLevel,
+      isLastMission: isLastMission
+    }
+  }
+
   seedMissions(runes: Rune[]) {
-    this.setMission(this.createMission(runes, SWExporterTypes.SetType.VIOLENT, 'spd', 26))
+    let canNext = true
+    let missionIndex = 0
+    let tab = [3, 5, 10, 15, 30]
+    while (canNext) {
+      const { mission, next } = this.createMissionTest(runes, SWExporterTypes.SetType.VIOLENT, 'spd', tab, missionIndex)
+
+      this.setMission(mission)
+      canNext = next
+      missionIndex += 1
+    }
+
+    /*
     this.setMission(this.createMission(runes, SWExporterTypes.SetType.VIOLENT, 'eff', 104))
     this.setMission(this.createMission(runes, SWExporterTypes.SetType.VIOLENT, 'eff-spd', 100))
 
@@ -107,6 +130,47 @@ export class MissionService {
     this.setMission(this.createMission(runes, SWExporterTypes.SetType.DESPAIR, 'spd', 26))
     this.setMission(this.createMission(runes, SWExporterTypes.SetType.DESPAIR, 'eff', 104))
     this.setMission(this.createMission(runes, SWExporterTypes.SetType.DESPAIR, 'eff-spd', 100))
+    */
+  }
+
+  createMissionTest(runes: Rune[], setType: SWExporterTypes.SetType, missionType: 'eff' | 'spd' | 'eff-spd', tab: any, index: number): { mission: Mission, next: boolean } {
+    const mission: Mission = {
+      title: 'Mission Name',
+      tag: [],
+      missionImg: '',
+      target: 1,
+      missionLevel: 1,
+      avancementCount: 1,
+      description: "",
+      percentage: 0,
+      xp: 1,
+      secretTag: '',
+      completed: false
+    }
+
+    let next = false;
+
+    let runeTypeName = SWExporterTypes.SetType[setType].toLowerCase()
+    mission.missionImg = runeTypeName
+    mission.title = missionType == 'spd' ? `${SWExporterTypes.SetType[setType]} speed quest` : `${SWExporterTypes.SetType[setType]} efficiency quest`
+    mission.tag.push('speed')
+    mission.avancementCount = this.getSpeedMission(runes, setType, 18)
+
+    const { target, missionLevel, isLastMission } = this.getStepMissionTest(mission.avancementCount, tab, index)
+    mission.target = target
+    mission.missionLevel = missionLevel
+    mission.description = `Cultiver ${mission.target} runes du set ${runeTypeName} avec 18 de vitesse`
+    next = next
+
+    mission.percentage = mission.avancementCount / mission.target * 100
+    if (mission.percentage >= 100) {
+      mission.completed = true;
+      next = true
+    }
+    mission.xp = mission.missionLevel * 100
+    mission.secretTag = `${this.getNumberRomanize(mission.missionLevel)} ${this.getCairossType(setType)} ${mission.completed ? 'completed' : 'ongoing'}`
+
+    return { mission: mission, next: isLastMission ? false : next }
   }
 
   createMission(runes: Rune[], setType: SWExporterTypes.SetType, missionType: 'eff' | 'spd' | 'eff-spd', criteria: number, secondCriteria: number = 21): Mission {
