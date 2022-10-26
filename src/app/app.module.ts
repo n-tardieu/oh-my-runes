@@ -24,6 +24,8 @@ import { LevelStepperComponent } from './components/level-stepper/level-stepper.
 import { MissionCardComponent } from './components/mission/mission-card/mission-card.component';
 import { MissionsListComponent } from './components/mission/missions-list/missions-list.component';
 import { TagComponent } from './components/tag/tag.component';
+import { RunesListComponent } from './components/runes/runes-list/runes-list.component';
+import { RuneCardComponent } from './components/runes/rune-card/rune-card.component';
 
 
 
@@ -35,7 +37,9 @@ import { TagComponent } from './components/tag/tag.component';
     LevelStepperComponent,
     MissionCardComponent,
     MissionsListComponent,
-    TagComponent
+    TagComponent,
+    RunesListComponent,
+    RuneCardComponent
   ],
   imports: [
     BrowserModule,
