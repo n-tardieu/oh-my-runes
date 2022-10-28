@@ -104,6 +104,7 @@ export class MissionService {
   }
 
   seedMissions(runes: Rune[]) {
+    /*
     let canNext = true
     let missionIndex = 0
     let tab = [3, 5, 10, 15, 30]
@@ -115,7 +116,9 @@ export class MissionService {
       missionIndex += 1
     }
 
-    /*
+    */
+
+   this.setMission(this.createMission(runes, SWExporterTypes.SetType.VIOLENT, 'spd', 26))
     this.setMission(this.createMission(runes, SWExporterTypes.SetType.VIOLENT, 'eff', 104))
     this.setMission(this.createMission(runes, SWExporterTypes.SetType.VIOLENT, 'eff-spd', 100))
 
@@ -130,7 +133,6 @@ export class MissionService {
     this.setMission(this.createMission(runes, SWExporterTypes.SetType.DESPAIR, 'spd', 26))
     this.setMission(this.createMission(runes, SWExporterTypes.SetType.DESPAIR, 'eff', 104))
     this.setMission(this.createMission(runes, SWExporterTypes.SetType.DESPAIR, 'eff-spd', 100))
-    */
   }
 
   createMissionTest(runes: Rune[], setType: SWExporterTypes.SetType, missionType: 'eff' | 'spd' | 'eff-spd', tab: any, index: number): { mission: Mission, next: boolean } {
@@ -196,7 +198,7 @@ export class MissionService {
       mission.tag.push('speed')
       mission.avancementCount = this.getSpeedMission(runes, setType, criteria)
 
-      const { target, missionLevel } = this.getStepMission(mission.avancementCount, "easy")
+      const { target, missionLevel } = this.getStepMission(mission.avancementCount, "hard")
       mission.target = target
       mission.missionLevel = missionLevel
       mission.description = `Cultiver ${mission.target} runes du set ${runeTypeName} avec ${criteria} de vitesse`
