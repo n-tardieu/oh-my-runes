@@ -1,6 +1,9 @@
+@import "../../../styles.scss";
 
 .container {
     padding: 36px;
+    height: 100%;
+    background-color: $cream;
 }
 .container-content-filter {
     display: flex;
