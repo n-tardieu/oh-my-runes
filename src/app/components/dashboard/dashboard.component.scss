@@ -1,18 +1,35 @@
 @import "../../../styles.scss";
 
 .container {
-    padding: 36px;
-    height: 100%;
+    //   padding: 36px;
+    min-height: 100%;
     background-color: $cream;
+    display: flex;
 }
+
+.container-navbar {
+    min-height: 100%;
+    width: 300px;
+    background-color: white;
+    border-right: 1px solid grey;
+}
+
+.container-content {
+    min-height: 100%;
+    width: 100%;
+    padding: 36px;
+}
+
 .container-content-filter {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border: 1px gray solid;
+    padding: 12px;
+    border-radius: 7px;
 }
 
 .container-content-cards {
-    padding-top: 48px;
     width: 100%;
 }
 

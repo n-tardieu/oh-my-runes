@@ -1,47 +1,10 @@
 <div class="container">
-    <h2>Summoner's dashbord</h2>
+    <div class="container-navbar">
+        nav
+    </div>
     <div class="container-content">
-        <div class="container-content-upgrade-activated">
-            <h3>Simulate upgrade runes (With Enchanted Gem)</h3>
-        </div>
-
-        <div class="container-content-filter">
-            <!--
-                <mat-radio-group [(ngModel)]="params.gemGrade" class="section-gems" aria-label="Select an mat-option">
-                    <mat-radio-button class="legOrHero" value="leg">Use Legendary gems</mat-radio-button>
-                    <br>
-                    <mat-radio-button class="legOrHero" value="hero">Use Hero gems</mat-radio-button>
-                    <br>
-                    <mat-radio-button class="legOrHero" value="default">Without gems overclock</mat-radio-button>
-                </mat-radio-group>
-            -->
-            <select [(ngModel)]="params.gemGrade">
-                <option value="default">Without gems (default)</option>
-                <option value="leg">Use Legendary gems</option>
-                <option value="hero">Use Hero gems</option>
-            </select>
-
-            <div class="section-option">
-                <!-- <mat-slide-toggle [(ngModel)]="isEquipedRunes">Use equiped runes</mat-slide-toggle> -->
-                <mat-slide-toggle [(ngModel)]="params.isOnlyStorageRunes">Exclude runes from island monsters
-                </mat-slide-toggle>
-                <br>
-                <mat-slide-toggle [(ngModel)]="params.isAbort">Abort if default is higher</mat-slide-toggle>
-
-            </div>
-
-            <div class="section-two-import-button">
-                <button mat-raised-button *ngIf="isValid" (click)="downloadWizardJSON()" class="btn-valid">Download
-                    upgraded
-                    file
-                    <mat-icon class="icon">file_download_on</mat-icon>
-                </button>
-                <button mat-flat-button disabled *ngIf="!isValid" class="btn-invalid">Full grinds runes<mat-icon
-                        class="icon">
-                        file_download_off</mat-icon></button>
-            </div>
-        </div>
         <div class="container-content-cards">
             <app-missions-list></app-missions-list>
         </div>
     </div>
+</div>
