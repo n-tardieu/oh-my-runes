@@ -26,6 +26,7 @@ import { MissionsListComponent } from './components/mission/missions-list/missio
 import { TagComponent } from './components/tag/tag.component';
 import { RunesListComponent } from './components/runes/runes-list/runes-list.component';
 import { RuneCardComponent } from './components/runes/rune-card/rune-card.component';
+import { EnchantsAndGemsParamsComponent } from './components/enchants-and-gems-params/enchants-and-gems-params.component';
 
 
 
@@ -39,7 +40,8 @@ import { RuneCardComponent } from './components/runes/rune-card/rune-card.compon
     MissionsListComponent,
     TagComponent,
     RunesListComponent,
-    RuneCardComponent
+    RuneCardComponent,
+    EnchantsAndGemsParamsComponent
   ],
   imports: [
     BrowserModule,
