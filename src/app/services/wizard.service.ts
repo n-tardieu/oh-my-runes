@@ -23,6 +23,9 @@ export class WizardService {
   setWizard(wizardJson: any) {
     this.wizard_data = wizardJson
     this.emitWizardSubject()
+
+    // data to local storage
+    localStorage.setItem('wizard', JSON.stringify(this.wizard_data));
   }
 
 
@@ -36,6 +39,10 @@ export class WizardService {
   }
 
   constructor() {
+    if (this.wizard_data == undefined) {
+      const localWizard = localStorage.getItem('wizard');
+      if (typeof localWizard == 'string') this.setWizard(JSON.parse(localWizard))
+    }
   }
 
 
