@@ -22,8 +22,8 @@ export class RunesConvertService {
   private runesListParams: RunesListParams = {
     isOnlyStorageRunes: true,
     isEquipedRunes: true,
-    isAbort: false,
-    gemGrade: 'hero'
+    isAbort: true,
+    gemGrade: 'default'
   }
 
   emitRunesListParamsSubject() {
