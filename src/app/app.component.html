@@ -1,1 +1,11 @@
-<router-outlet></router-outlet>
+<div class="container">
+    <div class="container-navbar" *ngIf="wizardHasSet">
+        <a routerLink="/dashboard">Quests</a>
+        <a routerLink="/dashboard">Runes</a>
+        <a routerLink="/params">Gems/Enchance</a>
+        <a routerLink="/">Clear JSON</a>
+    </div>
+    <div class="container-content">
+        <router-outlet></router-outlet>
+    </div>
+</div>
