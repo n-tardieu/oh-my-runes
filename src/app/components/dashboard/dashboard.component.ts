@@ -12,20 +12,9 @@ export class DashboardComponent implements OnInit, OnChanges, DoCheck {
 
   isValid = true;
 
-  @Input()
-  public params: RunesListParams = {
-    isEquipedRunes: true,
-    isOnlyStorageRunes: true,
-    isAbort: true,
-    gemGrade: 'default'
-  }
-
-  private paramsDiffer!: KeyValueDiffer<string, any>;
-
-  constructor(private differs: KeyValueDiffers, private runesConvertService: RunesConvertService, private wizardService: WizardService) { }
+  constructor( private runesConvertService: RunesConvertService, private wizardService: WizardService) { }
 
   ngOnInit() {
-    this.paramsDiffer = this.differs.find(this.params).create();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -33,10 +22,6 @@ export class DashboardComponent implements OnInit, OnChanges, DoCheck {
   }
 
   ngDoCheck(): void {
-    const changes = this.paramsDiffer.diff(this.params)
-    if (changes) {
-      this.runesConvertService.setRunesListParams(this.params)
-    }
   }
 
   downloadWizardJSON(): void {
