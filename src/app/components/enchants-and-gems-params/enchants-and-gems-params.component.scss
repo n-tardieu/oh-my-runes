@@ -1,0 +1,48 @@
+@import "../../../styles.scss";
+
+.container {
+    padding: 36px;
+    min-height: 100%;
+    background-color: $cream;
+    display: flex;
+    flex-direction: column;
+}
+
+.container-content {
+    height: 100%;
+    padding: 36px;
+    background-color: $white;
+    border-radius: 14px;
+    margin-bottom: 34px;
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 10%), 0 6px 20px 0 rgb(0 0 0 / 10%);
+}
+
+
+.section-option {
+    margin-top: 18px;
+}
+
+.section-button {
+    margin-top: 64px;
+    .section-button-text {
+        margin-bottom: 28px;
+        p {
+            margin: 0px
+        }
+    }
+}
+
+.section-gems {
+    display: flex;
+    padding-top: 80px;
+    margin-left: .75rem;
+    margin-right: .75rem;
+}
+
+mat-radio-group {
+    justify-content: space-around;
+}
+
+mat-radio-button {
+    padding: 8px
+}
