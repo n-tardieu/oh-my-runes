@@ -25,12 +25,13 @@ export class HomepageComponent implements OnInit, AfterViewInit {
   isValid = false;
 
   isDemonstration: boolean = false
+  wizard_data!: Wizard;
 
 
   runes: Rune[] = []
   // runeSubscription: Subscription;
 
-  constructor(private router: Router, private wizardService: WizardService, private runeService : RuneService, private runeConvertService: RunesConvertService) { }
+  constructor(private router: Router, private wizardService: WizardService, private runeService: RuneService, private runeConvertService: RunesConvertService) { }
 
   ngOnInit(): void {
     /*
@@ -54,8 +55,11 @@ export class HomepageComponent implements OnInit, AfterViewInit {
   }
 
   moveToDashbord(): void {
-    this.router.navigate(['/dashboard']);
-   // this.runeConvertService.cleanFileWithRaid() //TODO
+    if (this.wizard_data !== undefined) {
+      this.router.navigate(['/dashboard']);
+      this.feedServices(this.wizard_data)
+    }
+    // this.runeConvertService.cleanFileWithRaid() //TODO
   }
 
   handle(event: any) {
@@ -64,18 +68,18 @@ export class HomepageComponent implements OnInit, AfterViewInit {
     const fileReader = new FileReader();
     fileReader.readAsText(this.fileToUpload as File, "UTF-8");
     fileReader.onload = () => {
-      const wizard_data = JSON.parse(fileReader.result as string);
-      this.feedServices(wizard_data)
+      this.wizard_data = JSON.parse(fileReader.result as string);
+
     };
     this.isValid = true
   }
 
-  resetFile(){
+  resetFile() {
     (document.querySelector('input') as HTMLInputElement).value = "";
     this.isValid = false
   }
 
-  feedServices(wizard_data: Wizard){
+  feedServices(wizard_data: Wizard) {
     this.wizardService.setWizard(wizard_data)
     this.runeService.setRunes(this.runeConvertService.useRuneForge(wizard_data))
   }
