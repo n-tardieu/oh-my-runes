@@ -27,4 +27,8 @@ export class AppComponent {
       }
     })
   }
+
+  resetWizard() {
+    this.wizardService.clearWizardData()
+  }
 }

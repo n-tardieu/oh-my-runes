@@ -27,6 +27,7 @@ import { TagComponent } from './components/tag/tag.component';
 import { RunesListComponent } from './components/runes/runes-list/runes-list.component';
 import { RuneCardComponent } from './components/runes/rune-card/rune-card.component';
 import { EnchantsAndGemsParamsComponent } from './components/enchants-and-gems-params/enchants-and-gems-params.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 
 
@@ -41,7 +42,8 @@ import { EnchantsAndGemsParamsComponent } from './components/enchants-and-gems-p
     TagComponent,
     RunesListComponent,
     RuneCardComponent,
-    EnchantsAndGemsParamsComponent
+    EnchantsAndGemsParamsComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
