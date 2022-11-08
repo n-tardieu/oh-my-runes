@@ -35,6 +35,7 @@ export class WizardService {
 
   clearWizardData() {
     this.wizard_data = undefined
+    localStorage.clear()
     this.emitWizardSubject()
   }
 
