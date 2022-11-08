@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Rune } from 'src/app/core/models/rune.model';
 import { Wizard } from 'src/app/core/types/sw-wizard.types';
@@ -7,6 +7,7 @@ import { RuneService } from 'src/app/services/rune.service';
 import { RunesConvertService } from 'src/app/services/runes-convert.service';
 import { WizardService } from 'src/app/services/wizard.service';
 
+import _jsonWizard from "../../../assets/json/wizard-070722.json";
 
 
 @Component({
@@ -14,7 +15,7 @@ import { WizardService } from 'src/app/services/wizard.service';
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.scss']
 })
-export class HomepageComponent implements OnInit, AfterViewInit {
+export class HomepageComponent implements OnInit, AfterViewInit, OnChanges {
 
   // ref main_vdo in background
   @ViewChild('vdo')
@@ -24,8 +25,8 @@ export class HomepageComponent implements OnInit, AfterViewInit {
   data: any;
   isValid = false;
 
-  isDemonstration: boolean = false
-  wizard_data!: Wizard;
+  public isDemonstration: boolean = false
+  wizard_data: Wizard | undefined;
 
 
   runes: Rune[] = []
@@ -45,6 +46,16 @@ export class HomepageComponent implements OnInit, AfterViewInit {
     this.el_vdo.nativeElement.playbackRate = 1 // (default 1) 
   }
 
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('changes ', changes);
+    if (this.isDemonstration == true) {
+      this.handleDemo(_jsonWizard)
+    } else {
+      this.resetFile()
+    }
+  }
+
   chooseWizardFile(): void {
     (document.querySelector('input') as HTMLInputElement).click()
   }
@@ -62,6 +73,11 @@ export class HomepageComponent implements OnInit, AfterViewInit {
     // this.runeConvertService.cleanFileWithRaid() //TODO
   }
 
+  handleDemo(json: Wizard) {
+    this.wizard_data = json
+    this.isValid = true
+  }
+
   handle(event: any) {
     this.fileToUpload = event.target.files[0]
     // adapt data
@@ -76,6 +92,8 @@ export class HomepageComponent implements OnInit, AfterViewInit {
 
   resetFile() {
     (document.querySelector('input') as HTMLInputElement).value = "";
+    this.wizardService.clearWizardData()
+    this.isDemonstration = false
     this.isValid = false
   }
 

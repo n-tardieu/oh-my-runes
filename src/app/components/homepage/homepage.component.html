@@ -20,7 +20,7 @@
             </div>
             <div class="section-option">
                 <br/>
-                <mat-slide-toggle [(ngModel)]="isDemonstration">Use JSON (demo file)</mat-slide-toggle>
+                <mat-slide-toggle [(ngModel)]="isDemonstration" (ngModelChange)="ngOnChanges($event)">Use JSON (demo file)</mat-slide-toggle>
             </div>
             <div class="section-manage-json">
                 <div *ngIf="isValid" class="section-json-name">
