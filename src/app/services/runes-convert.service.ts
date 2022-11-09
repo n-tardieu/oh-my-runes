@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { RunesListParams } from '../core/interfaces/runes-list-params.interfaces';
+import { Effect } from '../core/models/effect.model';
 import { Rune } from '../core/models/rune.model';
 import { SWCalculatorTypes } from '../core/types/sw-calculator.types';
 import { SWExporterTypes } from '../core/types/sw-exporter.types';
@@ -107,8 +108,10 @@ export class RunesConvertService {
         })
       });
 
+    // TODO need params to switch maxUpgraded or upgradeRunes
     _runeUnit.concat(_runeList).forEach(rune => {
       let runeUpgraded: any = this.upgradeRunes(rune)
+      //let runeUpgraded: any = this.maxUpgraded(rune)
       _newRunes.push(runeUpgraded)
     });
 
@@ -240,6 +243,82 @@ export class RunesConvertService {
 
     let efficiency = (ratio / 2.8) * 100;
     return efficiency
+  }
+
+  // update rune with best effType Gems for efficiency
+  maxUpgraded(rune: Rune) {
+    let runeV2 = rune
+    let subSlotToChange = this.subSlotToChange(rune)
+    let gemsCantUse = this.slotExeption(rune.slotFactor)
+
+    // innateEffect
+    gemsCantUse.push(rune.primaryEffect.type)
+    if (rune.innateEffect) {
+      gemsCantUse.push(rune.innateEffect.type)
+    }
+
+    // we get effType used in other slot and send it in gemsCantUse
+    rune.secondaryEffects.forEach((eff, index) => {
+      if (index != subSlotToChange) {
+        gemsCantUse.push(eff.type)
+      }
+    })
+
+
+    // list of gemsCanUse
+    let gemsCanUse = [
+      SWExporterTypes.EffectType.HPPercent,
+      SWExporterTypes.EffectType.DEFPercent,
+      SWExporterTypes.EffectType.ATKPercent,
+      SWExporterTypes.EffectType.SPEED,
+      SWExporterTypes.EffectType.CRITRate,
+      SWExporterTypes.EffectType.ACC,
+      SWExporterTypes.EffectType.HP
+    ].filter((effType: number) => {
+      if (gemsCantUse.includes(effType)) {
+        return false
+      } return true
+    }).filter(e => e != null);
+
+
+    // now we select in gemsCanUse the best choice
+    let bestGemCanBeUse = gemsCanUse[0]
+    if (bestGemCanBeUse !== undefined) {
+      (rune.secondaryEffects[subSlotToChange] as SWCalculatorTypes.Effect || {}).gems = 1;
+      (rune.secondaryEffects[subSlotToChange] as SWCalculatorTypes.Effect || {}).type = bestGemCanBeUse;
+      (rune.secondaryEffects[subSlotToChange] as SWCalculatorTypes.Effect || {}).value = 0;
+      (rune.secondaryEffects[subSlotToChange] as SWCalculatorTypes.Effect || {}).grindstones = 0
+    }
+
+    return this.upgradeRunes(rune);
+  }
+
+  // need to be more explicite use SWExpoterTypes.EffectType
+  slotExeption(slotNumer: number): any {
+    if (slotNumer == 1) {
+      return [5, 6]
+    }
+    if (slotNumer == 3) {
+      return [3, 4]
+    }
+    return []
+  }
+
+
+
+  subSlotToChange(rune: Rune): number {
+    let less = 500
+    let subTochange = 0
+    rune.secondaryEffects.forEach((effect, index) => {
+      if (effect.gems == 1) {
+        subTochange = index
+        less = 0
+      } else if ((Rune.subStatEfficiency as any).get(effect.type) * (Rune.subStatCustomEfficiency as any).get(effect.type) < less) {
+        less = (Rune.subStatEfficiency as any).get(effect.type) * (Rune.subStatCustomEfficiency as any).get(effect.type)
+        subTochange = index
+      }
+    })
+    return subTochange
   }
 
   runeExportFormat(rune: Rune) {
