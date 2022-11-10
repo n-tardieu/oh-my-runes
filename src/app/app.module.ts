@@ -28,6 +28,7 @@ import { RunesListComponent } from './components/runes/runes-list/runes-list.com
 import { RuneCardComponent } from './components/runes/rune-card/rune-card.component';
 import { EnchantsAndGemsParamsComponent } from './components/enchants-and-gems-params/enchants-and-gems-params.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { RunesComponent } from './components/runes/runes.component';
 
 
 
@@ -43,7 +44,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     RunesListComponent,
     RuneCardComponent,
     EnchantsAndGemsParamsComponent,
-    NavbarComponent
+    NavbarComponent,
+    RunesComponent
   ],
   imports: [
     BrowserModule,
