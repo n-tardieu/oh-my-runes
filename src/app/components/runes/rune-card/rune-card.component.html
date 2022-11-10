@@ -1,19 +1,16 @@
 <div class="container">
     <div class="container-content-img">
-            <img src='{{"../../../../assets/png/runes/rune_swift.png"}}'>
+        <img src='{{"../../../../assets/png/runes/rune_" + getType() + ".png"}}'>
+        <div class="container-content-primary">
+            <h2>{{ getEffect(rune.primaryEffect.type) + " " + rune.primaryEffect.value}}</h2>
+        </div>
     </div>
-    <div class="container-content-rune">
+    <div class="container-content-stats">
         <div class="container-content-mission-section1">
             <div class="container-content-mission-section1-title">
-                <h2></h2>
-                <div>
-                   <h3>dt</h3>
+                <div *ngFor="let effect of rune.secondaryEffects">
+                    <p> {{ getEffect(effect.type) + " " + (effect.value + effect.grindstones) }}</p>
                 </div>
-            </div>
-        </div>
-        <div class="container-content-rune-section2">
-            <div class="container-content-mission-section2-description">
-                desc
             </div>
         </div>
     </div>
