@@ -1,13 +1,12 @@
 @import "../styles.scss";
 
 .container {
-    min-height: 100%;
     display: flex;
     overflow: hidden;
+    height: 100%;
 }
 
 .container-content {
-    //min-height: 100%;
     overflow-y: auto;
     width: 100%;
 }
