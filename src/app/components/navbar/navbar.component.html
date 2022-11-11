@@ -1,22 +1,33 @@
 <div class="container-navbar" *ngIf="wizardHasSet">
     <div class="container-navbar-top">
+        <div class="container-navbar-header">
+            <h2>OH MY RUNES</h2>
+        </div>
         <a class="container-navbar-btn" routerLink="/dashboard" routerLinkActive="active">
             <mat-icon class="icon">
                 playlist_add_check
-            </mat-icon> Quests
+            </mat-icon>
+            <p class="container-navbar-btn-txt">Quests</p>
         </a>
         <a class="container-navbar-btn" routerLink="/runes" routerLinkActive="active">
             <mat-icon class="icon">
                 auto_awesome
-            </mat-icon>Runes
+            </mat-icon>
+            <p class="container-navbar-btn-txt">Runes</p>
         </a>
         <a class="container-navbar-btn" routerLink="/params" routerLinkActive="active">
             <mat-icon class="icon">
                 toggle_on
-            </mat-icon>Gems/Enchance
+            </mat-icon>
+            <p class="container-navbar-btn-txt">Gems/Enchance</p>
         </a>
     </div>
-    <a class="container-navbar-btn" routerLink="/" (click)="resetWizard()"> <mat-icon class="icon">
-        logout
-    </mat-icon>Clear JSON</a>
+    <div class="container-navbar-bottom">
+        <a class="container-navbar-btn" routerLink="/" (click)="resetWizard()">
+            <mat-icon class="icon">
+                logout
+            </mat-icon>
+            <p class="container-navbar-btn-txt">Clear JSON</p>
+        </a>
+    </div>
 </div>
