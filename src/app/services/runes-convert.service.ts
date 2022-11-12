@@ -47,7 +47,7 @@ export class RunesConvertService {
   }
 
   convertOneRune(rune: SWExporterTypes.Rune): SWCalculatorTypes.Rune {
-    return {
+    const _rune: Rune = {
       setType: rune.set_id,
       isAntique: rune.class - 10 > 0,
       stars: rune.class % 10,
@@ -56,12 +56,20 @@ export class RunesConvertService {
       rank: rune.rank,
       slotFactor: rune.slot_no,
       primaryEffect: this.convertEffect(rune.pri_eff),
-      secondaryEffects: rune.sec_eff.map(this.convertSecondaryEffect),
+      secondaryEffects: rune.sec_eff.map(this.convertSecondaryEffect) as [],
+      secondaryEffectsUpgraded: rune.sec_eff.map(this.convertSecondaryEffect) as [],
       innateEffect: this.convertEffect(rune.prefix_eff),
       sellValue: rune.sell_value,
       maxUpgradeLevel: rune.ugrade_limit,
       upgradeLevel: rune.upgrade_curr,
+      efficiency: 0,
+      maxEfficiency: 0
     }
+
+    _rune.efficiency = this.efficiency(_rune)
+    _rune.maxEfficiency = this.efficiency(this.maxUpgraded(_rune))
+
+    return _rune
   }
 
   convertEffect(effet: SWExporterTypes.Effect): SWCalculatorTypes.Effect {
@@ -247,7 +255,6 @@ export class RunesConvertService {
 
   // update rune with best effType Gems for efficiency
   maxUpgraded(rune: Rune) {
-    let runeV2 = rune
     let subSlotToChange = this.subSlotToChange(rune)
     let gemsCantUse = this.slotExeption(rune.slotFactor)
 
@@ -263,6 +270,9 @@ export class RunesConvertService {
         gemsCantUse.push(eff.type)
       }
     })
+
+    // TODO inclure le slot conrant dans les changements possible
+    // comparer avec grind plus GEMS lorsque possible
 
 
     // list of gemsCanUse
@@ -286,8 +296,8 @@ export class RunesConvertService {
     if (bestGemCanBeUse !== undefined) {
       (rune.secondaryEffects[subSlotToChange] as SWCalculatorTypes.Effect || {}).gems = 1;
       (rune.secondaryEffects[subSlotToChange] as SWCalculatorTypes.Effect || {}).type = bestGemCanBeUse;
-      (rune.secondaryEffects[subSlotToChange] as SWCalculatorTypes.Effect || {}).value = 0;
-      (rune.secondaryEffects[subSlotToChange] as SWCalculatorTypes.Effect || {}).grindstones = 0
+      (rune.secondaryEffects[subSlotToChange] as SWCalculatorTypes.Effect || {}).value = Rune.enchanteGemHero.get(bestGemCanBeUse) as number
+      (rune.secondaryEffects[subSlotToChange] as SWCalculatorTypes.Effect || {}).grindstones = Rune.grindstonesHero.get(bestGemCanBeUse) as number
     }
 
     return this.upgradeRunes(rune);
