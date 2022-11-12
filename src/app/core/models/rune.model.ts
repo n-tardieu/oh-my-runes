@@ -33,6 +33,10 @@ export class Rune implements SWCalculatorTypes.Rune {
     secondaryEffects: Effect[] = []
     unitImage?: string
 
+    secondaryEffectsUpgraded: Effect[] = []
+    efficiency: number
+    maxEfficiency: number
+
     constructor(data: SWCalculatorTypes.Rune) {
         this.setType = data.setType
         this.isAntique = data.isAntique
@@ -43,6 +47,8 @@ export class Rune implements SWCalculatorTypes.Rune {
         this.sellValue = data.sellValue
         this.maxUpgradeLevel = data.maxUpgradeLevel
         this.upgradeLevel = data.upgradeLevel
+        this.efficiency = data.efficiency
+        this.maxEfficiency = data.maxEfficiency
         if (data.innateEffect) {
             this.innateEffect = new Effect(data.innateEffect)
         }
