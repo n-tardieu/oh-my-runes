@@ -25,4 +25,8 @@ export class RuneCardComponent implements OnInit {
     return SWExporterTypes.EffectType[type]
   }
 
+  getNaturalRank(rank: number){
+    return SWExporterTypes.Rank[rank]
+  }
+
 }

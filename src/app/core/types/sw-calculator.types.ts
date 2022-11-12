@@ -3,34 +3,34 @@ import { SWExporterTypes } from "./sw-exporter.types"
 export namespace SWCalculatorTypes {
 
     export enum CaracteristicsType {
-        HEALTH="Health",
-        ATTACK="Attack",
-        DEFENSE="Defense",
-        SPEED="Spd",
+        HEALTH = "Health",
+        ATTACK = "Attack",
+        DEFENSE = "Defense",
+        SPEED = "Spd",
         /// Following stats are in %.
-        CRIT_RATE="Critical Rate",
-        CRIT_DAMAGE="Critical Damage",
-        RESISTANCE="Resistance",
-        ACCURACY="Accuracy",
+        CRIT_RATE = "Critical Rate",
+        CRIT_DAMAGE = "Critical Damage",
+        RESISTANCE = "Resistance",
+        ACCURACY = "Accuracy",
         /// Following stats are hidden and serves as counter, to fast access
-        WILL="Will",
-        SHIELD="Shield",
-        REPLAY_CHANCE="Replay Chance",
-        STUN_CHANCE="Stun Chance",
-        LIFE_STEAL="Life Steal",
-        ATB_MISSING_HEALTH="ATB per missing HP%",
-        COUNTER_ATTACK_CHANCE="Counter attack chance",
-        HPPercent_DESTRUCTION="HP% destruction",
+        WILL = "Will",
+        SHIELD = "Shield",
+        REPLAY_CHANCE = "Replay Chance",
+        STUN_CHANCE = "Stun Chance",
+        LIFE_STEAL = "Life Steal",
+        ATB_MISSING_HEALTH = "ATB per missing HP%",
+        COUNTER_ATTACK_CHANCE = "Counter attack chance",
+        HPPercent_DESTRUCTION = "HP% destruction",
     }
 
     export enum EffectType {
-        HP =1,
+        HP = 1,
         HPPercent,
         ATK,
         ATKPercent,
         DEF,
         DEFPercent,
-        SPEED =8,
+        SPEED = 8,
         CRITRate,
         CRITDmg,
         RES,
@@ -46,12 +46,12 @@ export namespace SWCalculatorTypes {
         HPPercent_DESTRUCTION,
 
         // Artifact EFFECTS
-        ARTIFACT_HP=100,
-        ARTIFACT_ATK=101,
-        ARTIFACT_DEF=102,
+        ARTIFACT_HP = 100,
+        ARTIFACT_ATK = 101,
+        ARTIFACT_DEF = 102,
 
         // Additional EFFECTS
-        SPEEDPercent=1000
+        SPEEDPercent = 1000
     }
 
     export interface Effect {
@@ -59,7 +59,7 @@ export namespace SWCalculatorTypes {
         gems: number
         value: number
         grindstones: number
-      
+
         // Use specifically for prefix effect and addition operations.
         effect_reducer: number
     }
@@ -69,7 +69,7 @@ export namespace SWCalculatorTypes {
         gems: number
         value: number
         grindstones: number
-      
+
         // Use specifically for prefix effect and addition operations.
         effect_reducer: number
     }
@@ -86,17 +86,23 @@ export namespace SWCalculatorTypes {
         class: any
         extra: SWExporterTypes.Extra
         rank: SWExporterTypes.Rank
-        slotFactor: SWExporterTypes.RuneSlot      
+        slotFactor: SWExporterTypes.RuneSlot
 
         innateEffect: Effect
         primaryEffect: Effect
         secondaryEffects: Effect[]
+        secondaryEffectsUpgraded: Effect[]
+
 
         sellValue: number
 
         maxUpgradeLevel: number
         upgradeLevel: number
         unitImage?: string
+
+        // efficiency
+        efficiency: number
+        maxEfficiency: number
     }
 
     export interface Artifact {
@@ -111,7 +117,7 @@ export namespace SWCalculatorTypes {
     }
 
     export enum ArtifactSlot {
-        ELEMENT =1,
+        ELEMENT = 1,
         TYPE
     }
 
@@ -125,30 +131,30 @@ export namespace SWCalculatorTypes {
         attribute: SWExporterTypes.Attribute
         archetype: SWExporterTypes.Archetype
         // Stats
-        baseCaracteristics: Record<CaracteristicsType,number>
+        baseCaracteristics: Record<CaracteristicsType, number>
         //enabledRuneSets: RuneSet[] 
-        runes: Record<SWExporterTypes.RuneSlot,Rune | null>
+        runes: Record<SWExporterTypes.RuneSlot, Rune | null>
         artifacts: Record<ArtifactSlot, Artifact | null>
     }
 
-    
+
     export class BuildingMetaData {
 
         constructor(
-            readonly name: string, 
+            readonly name: string,
             readonly effectType: SWExporterTypes.EffectType,
-            readonly baseBonus: number, 
-            readonly bonusPerLevel:number, 
-            readonly minLevel: number, 
+            readonly baseBonus: number,
+            readonly bonusPerLevel: number,
+            readonly minLevel: number,
             readonly maxLevel: number,
             readonly type: SWExporterTypes.BuildingType
-        ) {}
+        ) { }
     }
 
     export interface Building {
         id: number
         level: number
-        
+
         metadata: BuildingMetaData
         effect: Effect
     }

@@ -2,4 +2,21 @@
     border: 1px solid black;
     border-radius: 12px;
     width: 100%;
+    padding: 10px;
+}
+
+.container-content-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.container-content-header-img {
+    display: flex;
+    flex-direction: row;
+}
+
+.container-content-header-eff {
+    display: flex;
+    flex-direction: column;
 }

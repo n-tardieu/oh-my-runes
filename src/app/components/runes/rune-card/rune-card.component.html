@@ -1,8 +1,15 @@
 <div class="container">
-    <div class="container-content-img">
-        <img src='{{"../../../../assets/png/runes/rune_" + getType() + ".png"}}'>
-        <div class="container-content-primary">
-            <h2>{{ getEffect(rune.primaryEffect.type) + " " + rune.primaryEffect.value}}</h2>
+    <div class="container-content-header">
+        <div class="container-content-header-img">
+            <img src='{{"../../../../assets/png/runes/rune_" + getType() + ".png"}}'>
+            <div class="container-content-primary">
+                <h2>{{ getEffect(rune.primaryEffect.type) + " " + rune.primaryEffect.value}}</h2>
+            </div>
+        </div>
+        <div class="container-content-header-eff">
+            <p>Orig: {{ getNaturalRank(rune.rank)}}</p>
+            <p>Eff: {{ rune.efficiency.toFixed(2) }}</p>
+            <p>EffMax: {{ rune.maxEfficiency.toFixed(2) }}</p>
         </div>
     </div>
     <div class="container-content-stats">
