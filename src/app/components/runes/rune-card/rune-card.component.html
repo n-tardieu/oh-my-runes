@@ -4,6 +4,7 @@
             <img src='{{"../../../../assets/png/runes/rune_" + getType() + ".png"}}'>
             <div class="container-content-primary">
                 <h2>{{ getEffect(rune.primaryEffect.type) + " " + rune.primaryEffect.value}}</h2>
+                <h3 *ngIf="rune?.innateEffect.type !== 0">{{ getEffect(rune.innateEffect.type) + " " + rune.innateEffect.value}}</h3>
             </div>
         </div>
         <div class="container-content-header-eff">
@@ -19,13 +20,16 @@
                     <div class="container-content-stats-section1-effects-value" *ngIf="effect.grindstones > 0">
                         <p> {{ getEffect(effect.type) }}</p>
                         <p class="container-content-stats-section1-effects-value-grind"> {{ formatEffect(effect) }}</p>
-                        <mat-icon *ngIf="effect.gems == 1" class="container-content-stats-section1-effects-value-icon">autorenew</mat-icon>
+                        <p class="container-content-stats-section1-effects-value-grind"> ({{ effect.grindstones }})</p>
+                        <mat-icon *ngIf="effect.gems == 1" class="container-content-stats-section1-effects-value-icon">
+                            autorenew</mat-icon>
 
                     </div>
                     <div class="container-content-stats-section1-effects-value" *ngIf="effect.grindstones == 0">
                         <p> {{ getEffect(effect.type) }}</p>
                         <p> {{ formatEffect(effect) }}</p>
-                        <mat-icon *ngIf="effect.gems == 1" class="container-content-stats-section1-effects-value-icon">autorenew</mat-icon>
+                        <mat-icon *ngIf="effect.gems == 1" class="container-content-stats-section1-effects-value-icon">
+                            autorenew</mat-icon>
 
                     </div>
                 </div>

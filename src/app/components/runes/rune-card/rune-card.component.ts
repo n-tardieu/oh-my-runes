@@ -31,7 +31,6 @@ export class RuneCardComponent implements OnInit {
   }
 
   formatEffect(effect: Effect) {
-
     if (
       effect.type == SWExporterTypes.EffectType.ATK ||
       effect.type == SWExporterTypes.EffectType.HP ||
@@ -42,8 +41,5 @@ export class RuneCardComponent implements OnInit {
     } else {
       return `+${effect.value + effect.grindstones}%`
     }
-
-
   }
-
 }

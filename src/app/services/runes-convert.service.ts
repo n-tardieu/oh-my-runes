@@ -57,7 +57,7 @@ export class RunesConvertService {
       slotFactor: rune.slot_no,
       primaryEffect: this.convertEffect(rune.pri_eff),
       secondaryEffects: rune.sec_eff.map(this.convertSecondaryEffect) as [],
-      secondaryEffectsUpgraded: rune.sec_eff.map(this.convertSecondaryEffect) as [],
+      secondaryEffectsUpgraded: undefined,
       innateEffect: this.convertEffect(rune.prefix_eff),
       sellValue: rune.sell_value,
       maxUpgradeLevel: rune.ugrade_limit,
@@ -67,8 +67,12 @@ export class RunesConvertService {
     }
 
     _rune.efficiency = this.efficiency(_rune)
+
+    const { runeMaxGems, gemsCanUse } = this.maxUpgraded(_rune)
+
     //_rune.maxEfficiency = _rune.efficiency < this.efficiency(this.maxUpgraded(_rune)) ? this.efficiency(this.maxUpgraded(_rune)) : _rune.efficiency
-    _rune.maxEfficiency = this.efficiency(this.maxUpgraded(_rune))
+    _rune.maxEfficiency = this.efficiency(runeMaxGems)
+    _rune.secondaryEffectsUpgraded = gemsCanUse
 
     return _rune
   }
@@ -255,7 +259,7 @@ export class RunesConvertService {
   }
 
   // update rune with best effType Gems for efficiency
-  maxUpgraded(rune: Rune) {
+  maxUpgraded(rune: Rune): { runeMaxGems: Rune, gemsCanUse: { index: number, gemsArray: number[] }, } {
     let subSlotToChange = this.subSlotToChange(rune)
     let gemsCantUse = this.slotExeption(rune.slotFactor)
 
@@ -300,7 +304,7 @@ export class RunesConvertService {
       (rune.secondaryEffects[subSlotToChange] as SWCalculatorTypes.Effect || {}).grindstones = Rune.grindstonesHero.get(bestGemCanBeUse) as number
     }
 
-    return this.upgradeRunes(rune);
+    return { runeMaxGems: this.upgradeRunes(rune), gemsCanUse: { index: subSlotToChange, gemsArray: gemsCanUse } };
   }
 
   // need to be more explicite use SWExpoterTypes.EffectType

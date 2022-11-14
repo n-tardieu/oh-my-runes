@@ -91,7 +91,7 @@ export namespace SWCalculatorTypes {
         innateEffect: Effect
         primaryEffect: Effect
         secondaryEffects: Effect[]
-        secondaryEffectsUpgraded: Effect[]
+        secondaryEffectsUpgraded: { index: number, gemsArray: number[] }
 
 
         sellValue: number

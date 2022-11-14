@@ -33,7 +33,7 @@ export class Rune implements SWCalculatorTypes.Rune {
     secondaryEffects: Effect[] = []
     unitImage?: string
 
-    secondaryEffectsUpgraded: Effect[] = []
+    secondaryEffectsUpgraded: any
     efficiency: number
     maxEfficiency: number
 
