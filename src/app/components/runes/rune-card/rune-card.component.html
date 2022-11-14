@@ -13,10 +13,21 @@
         </div>
     </div>
     <div class="container-content-stats">
-        <div class="container-content-mission-section1">
-            <div class="container-content-mission-section1-title">
+        <div class="container-content-stats-section1">
+            <div class="container-content-stats-section1-effects">
                 <div *ngFor="let effect of rune.secondaryEffects">
-                    <p> {{ getEffect(effect.type) + " " + (effect.value + effect.grindstones) }}</p>
+                    <div class="container-content-stats-section1-effects-value" *ngIf="effect.grindstones > 0">
+                        <p> {{ getEffect(effect.type) }}</p>
+                        <p class="container-content-stats-section1-effects-value-grind"> {{ formatEffect(effect) }}</p>
+                        <mat-icon *ngIf="effect.gems == 1" class="container-content-stats-section1-effects-value-icon">autorenew</mat-icon>
+
+                    </div>
+                    <div class="container-content-stats-section1-effects-value" *ngIf="effect.grindstones == 0">
+                        <p> {{ getEffect(effect.type) }}</p>
+                        <p> {{ formatEffect(effect) }}</p>
+                        <mat-icon *ngIf="effect.gems == 1" class="container-content-stats-section1-effects-value-icon">autorenew</mat-icon>
+
+                    </div>
                 </div>
             </div>
         </div>

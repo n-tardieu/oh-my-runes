@@ -1,3 +1,5 @@
+@import "../../../../styles.scss";
+
 .container {
     border: 1px solid black;
     border-radius: 12px;
@@ -19,4 +21,20 @@
 .container-content-header-eff {
     display: flex;
     flex-direction: column;
+}
+
+.container-content-stats-section1-effects-value {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+}
+
+.container-content-stats-section1-effects-value-grind {
+    color: $orange;
+}
+
+.container-content-stats-section1-effects-value-icon {
+    color: $orange;
+    font-size: 18px;
+    font-weight: bold;
 }

@@ -67,6 +67,7 @@ export class RunesConvertService {
     }
 
     _rune.efficiency = this.efficiency(_rune)
+    //_rune.maxEfficiency = _rune.efficiency < this.efficiency(this.maxUpgraded(_rune)) ? this.efficiency(this.maxUpgraded(_rune)) : _rune.efficiency
     _rune.maxEfficiency = this.efficiency(this.maxUpgraded(_rune))
 
     return _rune
@@ -271,7 +272,6 @@ export class RunesConvertService {
       }
     })
 
-    // TODO inclure le slot conrant dans les changements possible
     // comparer avec grind plus GEMS lorsque possible
 
 
@@ -317,15 +317,19 @@ export class RunesConvertService {
 
 
   subSlotToChange(rune: Rune): number {
-    let less = 500
+    let less = 200
     let subTochange = 0
     rune.secondaryEffects.forEach((effect, index) => {
       if (effect.gems == 1) {
         subTochange = index
         less = 0
-      } else if ((Rune.subStatEfficiency as any).get(effect.type) * (Rune.subStatCustomEfficiency as any).get(effect.type) < less) {
-        less = (Rune.subStatEfficiency as any).get(effect.type) * (Rune.subStatCustomEfficiency as any).get(effect.type)
-        subTochange = index
+      } else {
+        const value = effect.value + effect.grindstones
+        const ratio = (value / (Rune.subStatEfficiency as any).get(effect.type) * (Rune.subStatCustomEfficiency as any).get(effect.type))
+        if (ratio < less) {
+          less = (Rune.subStatEfficiency as any).get(effect.type) * (Rune.subStatCustomEfficiency as any).get(effect.type)
+          subTochange = index
+        }
       }
     })
     return subTochange

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Effect } from 'src/app/core/models/effect.model';
 import { Rune } from 'src/app/core/models/rune.model';
 import { SWExporterTypes } from 'src/app/core/types/sw-exporter.types';
 
@@ -25,8 +26,24 @@ export class RuneCardComponent implements OnInit {
     return SWExporterTypes.EffectType[type]
   }
 
-  getNaturalRank(rank: number){
+  getNaturalRank(rank: number) {
     return SWExporterTypes.Rank[rank]
+  }
+
+  formatEffect(effect: Effect) {
+
+    if (
+      effect.type == SWExporterTypes.EffectType.ATK ||
+      effect.type == SWExporterTypes.EffectType.HP ||
+      effect.type == SWExporterTypes.EffectType.DEF ||
+      effect.type == SWExporterTypes.EffectType.SPEED
+    ) {
+      return `+${effect.value + effect.grindstones}`
+    } else {
+      return `+${effect.value + effect.grindstones}%`
+    }
+
+
   }
 
 }
