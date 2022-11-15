@@ -68,11 +68,10 @@ export class RunesConvertService {
 
     _rune.efficiency = this.efficiency(_rune)
 
-    // const { runeMaxGems, gemsCanUse } = this.maxUpgraded(_rune)
+    const { runeMaxGems, gemsCanUse } = this.maxUpgraded(new Rune(_rune))
 
-     //   _rune.maxEfficiency = _rune.efficiency < this.efficiency(this.maxUpgraded(_rune)) ? this.efficiency(this.maxUpgraded(_rune)) : _rune.efficiency
-    // _rune.maxEfficiency = this.efficiency(runeMaxGems)
-    //  _rune.secondaryEffectsUpgraded = gemsCanUse
+    _rune.maxEfficiency = _rune.efficiency < this.efficiency(runeMaxGems) ? this.efficiency(runeMaxGems) : _rune.efficiency
+    _rune.secondaryEffectsUpgraded = gemsCanUse
 
     return _rune
   }
