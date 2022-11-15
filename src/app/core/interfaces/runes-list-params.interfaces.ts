@@ -3,4 +3,5 @@ export interface RunesListParams {
   isAbort: boolean,
   isEquipedRunes: boolean,
   gemGrade: 'leg' | 'hero' | 'default'
+  isEfficiencyMax: boolean
 }

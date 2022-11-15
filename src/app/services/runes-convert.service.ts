@@ -24,7 +24,8 @@ export class RunesConvertService {
     isOnlyStorageRunes: true,
     isEquipedRunes: true,
     isAbort: true,
-    gemGrade: 'default'
+    gemGrade: 'default',
+    isEfficiencyMax: false
   }
 
   emitRunesListParamsSubject() {

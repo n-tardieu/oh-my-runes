@@ -56,8 +56,9 @@ export class MissionService {
     })
   }
   efficiencyFilter(runes: Rune[], type: SWExporterTypes.SetType, efficiency: number): Rune[] {
+    const isEfficiencyMax = this.runesConvertService.getRunesListParams().isEfficiencyMax
     return runes.filter((rune: Rune) => {
-      if (rune.setType == type && (this.runesConvertService.efficiency(rune) >= efficiency)) return true
+      if (rune.setType == type && (isEfficiencyMax ? rune.maxEfficiency >= efficiency : rune.efficiency >= efficiency)) return true
       else return false
     })
   }
@@ -118,7 +119,7 @@ export class MissionService {
 
     */
 
-   this.setMission(this.createMission(runes, SWExporterTypes.SetType.VIOLENT, 'spd', 26))
+    this.setMission(this.createMission(runes, SWExporterTypes.SetType.VIOLENT, 'spd', 26))
     this.setMission(this.createMission(runes, SWExporterTypes.SetType.VIOLENT, 'eff', 104))
     this.setMission(this.createMission(runes, SWExporterTypes.SetType.VIOLENT, 'eff-spd', 100))
 
