@@ -40,9 +40,9 @@ export class Effect implements SWCalculatorTypes.Effect {
         [SWExporterTypes.EffectType.CRITRate]: "C.Rate",
         [SWExporterTypes.EffectType.RES]: "Res",
         [SWExporterTypes.EffectType.ACC]: "Acc",
-        [SWExporterTypes.EffectType.HPPercent]: "HP%",
-        [SWExporterTypes.EffectType.ATKPercent]: "ATK%",
-        [SWExporterTypes.EffectType.DEFPercent]: "DEF%",
+        [SWExporterTypes.EffectType.HPPercent]: "HP",
+        [SWExporterTypes.EffectType.ATKPercent]: "ATK",
+        [SWExporterTypes.EffectType.DEFPercent]: "DEF",
         // Special effects. TODO find another way to handle them.
         [SWExporterTypes.EffectType.WILL]: "Will",
         [SWExporterTypes.EffectType.SHIELD]: "Shield",

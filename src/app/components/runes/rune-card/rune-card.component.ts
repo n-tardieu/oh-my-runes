@@ -42,4 +42,8 @@ export class RuneCardComponent implements OnInit {
       return `+${effect.value + effect.grindstones}%`
     }
   }
+
+  formatType(type: SWExporterTypes.EffectType) {
+    return Effect.typeStr[type]
+  }
 }

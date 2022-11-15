@@ -68,11 +68,11 @@ export class RunesConvertService {
 
     _rune.efficiency = this.efficiency(_rune)
 
-    const { runeMaxGems, gemsCanUse } = this.maxUpgraded(_rune)
+    // const { runeMaxGems, gemsCanUse } = this.maxUpgraded(_rune)
 
-    //_rune.maxEfficiency = _rune.efficiency < this.efficiency(this.maxUpgraded(_rune)) ? this.efficiency(this.maxUpgraded(_rune)) : _rune.efficiency
-    _rune.maxEfficiency = this.efficiency(runeMaxGems)
-    _rune.secondaryEffectsUpgraded = gemsCanUse
+     //   _rune.maxEfficiency = _rune.efficiency < this.efficiency(this.maxUpgraded(_rune)) ? this.efficiency(this.maxUpgraded(_rune)) : _rune.efficiency
+    // _rune.maxEfficiency = this.efficiency(runeMaxGems)
+    //  _rune.secondaryEffectsUpgraded = gemsCanUse
 
     return _rune
   }
@@ -124,7 +124,6 @@ export class RunesConvertService {
     // TODO need params to switch maxUpgraded or upgradeRunes
     _runeUnit.concat(_runeList).forEach(rune => {
       let runeUpgraded: any = this.upgradeRunes(rune)
-      //let runeUpgraded: any = this.maxUpgraded(rune)
       _newRunes.push(runeUpgraded)
     });
 
@@ -206,6 +205,7 @@ export class RunesConvertService {
             rune.secondaryEffects[slot].grindstones = Rune.grindstonesLeg.get(rune.secondaryEffects[slot].type) as number
           }
         }
+
         // not leg
         else if (this.runesListParams.gemGrade == 'hero') {
           if (rune.secondaryEffects[slot].gems == 1) {
@@ -304,7 +304,7 @@ export class RunesConvertService {
       (rune.secondaryEffects[subSlotToChange] as SWCalculatorTypes.Effect || {}).grindstones = Rune.grindstonesHero.get(bestGemCanBeUse) as number
     }
 
-    return { runeMaxGems: this.upgradeRunes(rune), gemsCanUse: { index: subSlotToChange, gemsArray: gemsCanUse } };
+    return { runeMaxGems: rune, gemsCanUse: { index: subSlotToChange, gemsArray: gemsCanUse } };
   }
 
   // need to be more explicite use SWExpoterTypes.EffectType
@@ -340,8 +340,6 @@ export class RunesConvertService {
   }
 
   runeExportFormat(rune: Rune) {
-
-    // console.log("__rune ", rune);
 
     this.id += 1
     let isAntique = 0
