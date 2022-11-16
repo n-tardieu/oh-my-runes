@@ -32,6 +32,8 @@ export class RuneService {
 
     // TODO not actual
     const datasets: number[] = []
+    const dataC1: number[] = []
+    const dataG1: number[] = []
     
     // TODO not legendary
     const datasetsMax: number[] = []
@@ -44,19 +46,37 @@ export class RuneService {
 
     runes.forEach((r, index) => {
       datasets.push(r.efficiency)
+      dataG1.push(r.efficiency + 9)
+      dataC1.push(r.efficiency - 21)
       datasetsMax.push(r.maxEfficiency)
       if(index % 5 == 0) labels.push(index.toString())
     })
+
+
 
 
     const modelChart = {
       labels: labels,
       datasets: [
         {
-          label: "Actual",
+          label: "Now",
           data: datasets,
           fill: false,
           borderColor: 'rgb(75, 192, 192)',
+          tension: 0.1
+        },
+        {
+          label: "Rank C1",
+          data: dataC1,
+          fill: false,
+          borderColor: 'yellow',
+          tension: 0.1
+        },
+        {
+          label: "Rank G1",
+          data: dataG1,
+          fill: false,
+          borderColor: 'red',
           tension: 0.1
         },
         // {
