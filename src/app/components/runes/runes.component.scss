@@ -1,9 +1,15 @@
+@import "/src/styles.scss";
+
 .container {
     padding: 42px;
+    background-color: $cream;
 }
 
 .container-list {
+    justify-content: center;
     display: flex;
-    flex-direction: column;
-    gap: 12px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 18px;
+    row-gap: 32px;
 }

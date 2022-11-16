@@ -1,3 +1,10 @@
-<div class="container" *ngFor="let r of runes">
-    <app-rune-card class="container-card" [rune]="r"></app-rune-card>
+<div class="container">
+    <div>
+        <h2>Runes</h2>
+    </div>
+    <div class="container-content">
+        <div class="container-content-rune" *ngFor="let r of runes">
+            <app-rune-card class="container-card" [rune]="r"></app-rune-card>
+        </div>
+    </div>
 </div>
