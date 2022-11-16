@@ -29,6 +29,7 @@ import { RuneCardComponent } from './components/runes/rune-card/rune-card.compon
 import { EnchantsAndGemsParamsComponent } from './components/enchants-and-gems-params/enchants-and-gems-params.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { RunesComponent } from './components/runes/runes.component';
+import { ChartComponent } from './components/chart/chart.component';
 
 
 
@@ -45,7 +46,8 @@ import { RunesComponent } from './components/runes/runes.component';
     RuneCardComponent,
     EnchantsAndGemsParamsComponent,
     NavbarComponent,
-    RunesComponent
+    RunesComponent,
+    ChartComponent
   ],
   imports: [
     BrowserModule,
