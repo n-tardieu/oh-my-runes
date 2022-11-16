@@ -31,9 +31,9 @@ export class Rune implements SWCalculatorTypes.Rune {
     innateEffect: any // Effect
     primaryEffect: any // Effect
     secondaryEffects: Effect[] = []
+    secondaryEffectsUpgraded: any
     unitImage?: string
 
-    secondaryEffectsUpgraded: any
     efficiency: number
     maxEfficiency: number
 
@@ -56,6 +56,7 @@ export class Rune implements SWCalculatorTypes.Rune {
         for (let i in data.secondaryEffects) {
             this.secondaryEffects.push(new Effect(data.secondaryEffects[i]))
         }
+        this.secondaryEffectsUpgraded = data.secondaryEffectsUpgraded
     }
 
     static subStatEfficiency: Map<SWExporterTypes.EffectType, number> = new Map([
