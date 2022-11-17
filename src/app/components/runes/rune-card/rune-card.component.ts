@@ -46,4 +46,12 @@ export class RuneCardComponent implements OnInit {
   formatType(type: SWExporterTypes.EffectType) {
     return Effect.typeStr[type]
   }
+
+  getBackgroundSlot(){
+    return `url(../../../../assets/png/runes/rune_${this.rune.slotFactor}.png)`
+  }
+
+  getBackgroundRank(){
+    return `url(../../../../assets/png/runes/bg_heroic.png)`
+  }
 }

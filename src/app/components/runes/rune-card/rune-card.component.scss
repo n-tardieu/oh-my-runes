@@ -29,6 +29,18 @@
 .container-content-header-img {
     display: flex;
     flex-direction: row;
+    height: 60px;
+    width: 60px;
+}
+
+.container-content-header-img-background-rank {
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.container-content-header-img-background-slot {
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 .container-content-header-eff {

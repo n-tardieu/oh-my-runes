@@ -2,7 +2,8 @@
     <div class="container-content">
         <div class="container-content-header">
             <div class="container-content-header-img">
-                <div class="container-content-header-img-background">
+                <div class="container-content-header-img-background-rank" [style.background-image]='getBackgroundRank()'>
+                    <div class="container-content-header-img-background-slot" [style.background-image]='getBackgroundSlot()'>
                     <img src='{{"../../../../assets/png/runes/rune_" + getType() + ".png"}}'>
                 </div>
             </div>
