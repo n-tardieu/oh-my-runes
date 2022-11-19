@@ -39,7 +39,7 @@ export class RuneService {
     const datasetsMax: number[] = []
     const labels: string[] = []
 
-    const runes = this.getRunes().sort((rune_a: Rune, rune_b: Rune) => {
+    const runes = this.getRunes().filter(r => r.setType == SWExporterTypes.SetType.VIOLENT || r.setType == SWExporterTypes.SetType.WILL).sort((rune_a: Rune, rune_b: Rune) => {
       if (rune_a.efficiency >= rune_b.efficiency) return -1
       return 1
     }).slice(0, runeNb)
@@ -49,7 +49,7 @@ export class RuneService {
       dataG1.push(r.efficiency + 9)
       dataC1.push(r.efficiency - 21)
       datasetsMax.push(r.maxEfficiency)
-      if(index % 5 == 0) labels.push(index.toString())
+      if(index % 1 == 0) labels.push('Runes : ' + index.toString())
     })
 
 

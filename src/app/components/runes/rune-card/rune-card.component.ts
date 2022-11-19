@@ -51,6 +51,8 @@ export class RuneCardComponent implements OnInit {
     return `url(../../../../assets/png/runes/rune_${this.rune.slotFactor}.png)`
   }
 
+
+  // TODO need dynamic
   getBackgroundRank(){
     return `url(../../../../assets/png/runes/bg_heroic.png)`
   }

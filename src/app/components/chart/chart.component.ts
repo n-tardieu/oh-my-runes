@@ -16,8 +16,7 @@ export class ChartComponent implements OnInit {
   constructor(private runeService: RuneService) { }
 
   ngOnInit(): void {
-    this.data = this.runeService.getRunesForChartJS(200)
-
+    this.data = this.runeService.getRunesForChartJS(300)
     this.createChart();
   }
 
@@ -28,9 +27,14 @@ export class ChartComponent implements OnInit {
       data: this.data,
       options: {
         responsive: true,
+        elements: {
+          point: {
+            radius: 0
+          }
+        },
         plugins: {
           legend: {
-            position: 'top',
+            position: 'bottom',
           },
           title: {
             display: true,
@@ -41,6 +45,14 @@ export class ChartComponent implements OnInit {
           y: {
             suggestedMin: 60,
             suggestedMax: 140
+          },
+          x: {
+            ticks: {
+              // Include a dollar sign in the ticks
+              callback: function (dataLabel, index) {
+                return index % 10 === 0 ? dataLabel : null;
+              }
+            }
           }
         }
       },
