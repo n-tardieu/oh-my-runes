@@ -81,20 +81,6 @@ export class RuneService {
           borderColor: 'rgb(75, 192, 192)',
           tension: 0.1
         },
-        // {
-        //   label: "Dev C1",
-        //   data: dataDevC1,
-        //   fill: false,
-        //   borderColor: 'yellow',
-        //   tension: 0.1
-        // },
-        // {
-        //   label: "Dev G1",
-        //   data: dataDevG1,
-        //   fill: false,
-        //   borderColor: 'red',
-        //   tension: 0.1
-        // },
         {
           label: "Legendary",
           data: datasetsMax,
