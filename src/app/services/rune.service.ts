@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { D } from 'chart.js/dist/chunks/helpers.core';
 import { Subject, Subscription } from 'rxjs';
 import { Rune } from '../core/models/rune.model';
 import { SWCalculatorTypes } from '../core/types/sw-calculator.types';
@@ -30,11 +31,15 @@ export class RuneService {
 
   getRunesForChartJS(runeNb: number) {
 
+
     // TODO not actual
     const datasets: number[] = []
     const dataC1: number[] = []
     const dataG1: number[] = []
-    
+
+    const dataDevC1: number[] = []
+    const dataDevG1: number[] = []
+
     // TODO not legendary
     const datasetsMax: number[] = []
     const labels: string[] = []
@@ -44,12 +49,23 @@ export class RuneService {
       return 1
     }).slice(0, runeNb)
 
+    const runesMaxEfficiency = this.getRunes().filter(r => r.setType == SWExporterTypes.SetType.VIOLENT || r.setType == SWExporterTypes.SetType.WILL).sort((rune_a: Rune, rune_b: Rune) => {
+      if (rune_a.maxEfficiency >= rune_b.maxEfficiency) return -1
+      return 1
+    }).slice(0, runeNb)
+
+
+    runesMaxEfficiency.forEach((r) => {
+      datasetsMax.push(r.maxEfficiency)
+    })
+
     runes.forEach((r, index) => {
       datasets.push(r.efficiency)
-      dataG1.push(r.efficiency + 9)
-      dataC1.push(r.efficiency - 21)
-      datasetsMax.push(r.maxEfficiency)
-      if(index % 1 == 0) labels.push('Runes : ' + index.toString())
+      //  dataG1.push(r.efficiency + 9)
+      //  dataC1.push(r.efficiency - 21)
+      dataDevC1.push(108 - index * 0.08)
+      dataDevG1.push(118 - index * 0.08)
+      if (index % 1 == 0) labels.push('Runes : ' + index.toString())
     })
 
 
@@ -65,27 +81,27 @@ export class RuneService {
           borderColor: 'rgb(75, 192, 192)',
           tension: 0.1
         },
-        {
-          label: "Rank C1",
-          data: dataC1,
-          fill: false,
-          borderColor: 'yellow',
-          tension: 0.1
-        },
-        {
-          label: "Rank G1",
-          data: dataG1,
-          fill: false,
-          borderColor: 'red',
-          tension: 0.1
-        },
         // {
-        //   label: "Legendary",
-        //   data: datasetsMax,
+        //   label: "Dev C1",
+        //   data: dataDevC1,
         //   fill: false,
-        //   borderColor: 'orange',
+        //   borderColor: 'yellow',
         //   tension: 0.1
         // },
+        // {
+        //   label: "Dev G1",
+        //   data: dataDevG1,
+        //   fill: false,
+        //   borderColor: 'red',
+        //   tension: 0.1
+        // },
+        {
+          label: "Legendary",
+          data: datasetsMax,
+          fill: false,
+          borderColor: 'orange',
+          tension: 0.1
+        },
       ]
     }
 
