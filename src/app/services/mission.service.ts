@@ -148,6 +148,7 @@ export class MissionService {
       percentage: 0,
       xp: 1,
       secretTag: '',
+      caiross: '',
       completed: false
     }
 
@@ -172,6 +173,7 @@ export class MissionService {
     }
     mission.xp = mission.missionLevel * 100
     mission.secretTag = `${this.getNumberRomanize(mission.missionLevel)} ${this.getCairossType(setType)} ${mission.completed ? 'completed' : 'ongoing'}`
+    mission.caiross = `${this.getCairossType(setType)}`
 
     return { mission: mission, next: isLastMission ? false : next }
   }
@@ -188,6 +190,7 @@ export class MissionService {
       percentage: 0,
       xp: 1,
       secretTag: '',
+      caiross: '',
       completed: false
     }
 
@@ -231,6 +234,7 @@ export class MissionService {
     if (mission.percentage >= 100) mission.completed = true
     mission.xp = mission.missionLevel * 100
     mission.secretTag = `${this.getNumberRomanize(mission.missionLevel)} ${this.getCairossType(setType)} ${mission.completed ? 'completed' : 'ongoing'}`
+    mission.caiross = `${this.getCairossType(setType)}`
 
     return mission
   }

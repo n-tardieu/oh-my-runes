@@ -14,6 +14,8 @@ export class MissionCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.mission);
+    
   }
 
   getTitle(m: Mission) {

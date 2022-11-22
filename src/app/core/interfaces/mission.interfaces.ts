@@ -9,5 +9,6 @@ export interface Mission {
     percentage: number;
     xp: number;
     secretTag: string;
+    caiross: string;
     completed: boolean;
 }

@@ -4,7 +4,7 @@
             <h2>Quests</h2>
         </div>
         <div class="container-section-sort">
-            <input [(ngModel)]="filter" (ngModelChange)="ngOnChanges($event)" placeholder="Filter"/>
+            <input [(ngModel)]="filter" (ngModelChange)="ngOnChanges($event)" placeholder="Filter" />
             <select [(ngModel)]="sortObject.params" (ngModelChange)="ngOnChanges($event)">
                 <option value="title">Titre</option>
                 <option value="percentage">Completed</option>
