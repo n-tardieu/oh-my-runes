@@ -38,7 +38,7 @@ export class ChartComponent implements OnInit {
           },
           title: {
             display: true,
-            text: 'Efficiency charts'
+            text: 'Efficiency charts (Vio / Will)'
           }
         },
         scales: {
