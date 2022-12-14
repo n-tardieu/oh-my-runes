@@ -297,12 +297,22 @@ export class RunesConvertService {
 
     // now we select in gemsCanUse the best choice
     let bestGemCanBeUse = gemsCanUse[0]
+
     if (bestGemCanBeUse !== undefined) {
-      (rune.secondaryEffects[subSlotToChange] as SWCalculatorTypes.Effect || {}).gems = 1;
-      (rune.secondaryEffects[subSlotToChange] as SWCalculatorTypes.Effect || {}).type = bestGemCanBeUse;
-      (rune.secondaryEffects[subSlotToChange] as SWCalculatorTypes.Effect || {}).value = Rune.enchanteGemHero.get(bestGemCanBeUse) as number
-      (rune.secondaryEffects[subSlotToChange] as SWCalculatorTypes.Effect || {}).grindstones = Rune.grindstonesHero.get(bestGemCanBeUse) as number
+      if (this.runesListParams.gemGrade == "leg") {
+        (rune.secondaryEffects[subSlotToChange] as SWCalculatorTypes.Effect || {}).gems = 1;
+        (rune.secondaryEffects[subSlotToChange] as SWCalculatorTypes.Effect || {}).type = bestGemCanBeUse;
+        (rune.secondaryEffects[subSlotToChange] as SWCalculatorTypes.Effect || {}).value = Rune.enchanteGemLeg.get(bestGemCanBeUse) as number
+        (rune.secondaryEffects[subSlotToChange] as SWCalculatorTypes.Effect || {}).grindstones = Rune.grindstonesLeg.get(bestGemCanBeUse) as number
+      } else {
+        (rune.secondaryEffects[subSlotToChange] as SWCalculatorTypes.Effect || {}).gems = 1;
+        (rune.secondaryEffects[subSlotToChange] as SWCalculatorTypes.Effect || {}).type = bestGemCanBeUse;
+        (rune.secondaryEffects[subSlotToChange] as SWCalculatorTypes.Effect || {}).value = Rune.enchanteGemHero.get(bestGemCanBeUse) as number
+        (rune.secondaryEffects[subSlotToChange] as SWCalculatorTypes.Effect || {}).grindstones = Rune.grindstonesHero.get(bestGemCanBeUse) as number
+      }
+
     }
+
 
     return { runeMaxGems: rune, gemsCanUse: { index: subSlotToChange, gemsArray: gemsCanUse } };
   }
@@ -321,17 +331,18 @@ export class RunesConvertService {
 
 
   subSlotToChange(rune: Rune): number {
-    let less = 200
+    // let less = 200
+    let less = Number.MAX_SAFE_INTEGER
     let subTochange = 0
     rune.secondaryEffects.forEach((effect, index) => {
       if (effect.gems == 1) {
         subTochange = index
         less = 0
       } else {
-        const value = effect.value + effect.grindstones
+        const value = this.runesListParams.gemGrade == "leg" ? effect.value + (Rune.grindstonesLeg.get(effect.type) as number) : effect.value + (Rune.grindstonesHero.get(effect.type) as number)
         const ratio = (value / (Rune.subStatEfficiency as any).get(effect.type) * (Rune.subStatCustomEfficiency as any).get(effect.type))
         if (ratio < less) {
-          less = (Rune.subStatEfficiency as any).get(effect.type) * (Rune.subStatCustomEfficiency as any).get(effect.type)
+          less = ratio
           subTochange = index
         }
       }
